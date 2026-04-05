@@ -1,13 +1,14 @@
 Package: superNetballR
-Title: Downloads and tidies super netball statistics
-Version: 0.2.0
+Title: Download and Tidy Super Netball Statistics
+Version: 0.1.0
 Authors@R: person("Steve", "Lane", email = "lane.s@unimelb.edu.au", role = c("aut", "cre"))
-Description: This package provides functions to easily download and manipulate data from super netball matches.
+Description: Tools to download Champion Data Super Netball match feeds and
+    transform team and player statistics into tidy data frames for analysis.
 Depends: R (>= 4.0.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Suggests: here,
+Suggests: ggplot2,
     knitr,
     rmarkdown,
     shiny,
@@ -15,10 +16,10 @@ Suggests: here,
 VignetteBuilder: knitr
 Imports: dplyr,
     httr,
-    tidyr,
-    purrr
-URL: https://craigmoyle.github.io/superNetballR_updated,
-    https://github.com/craigmoyle/superNetballR_updated
+    magrittr,
+    purrr,
+    tidyr
+URL: https://github.com/craigmoyle/superNetballR_updated
 BugReports: https://github.com/craigmoyle/superNetballR_updated/issues
 Config/testthat/edition: 3
 RoxygenNote: 7.3.3

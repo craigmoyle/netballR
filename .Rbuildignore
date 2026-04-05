@@ -10,3 +10,7 @@
 ^\.travis\.yml$
 ^doc$
 ^Meta$
+^\.github$
+^.*\.Rcheck$
+^superNetballR_.*\.tar\.gz$
+^changelog\.md$

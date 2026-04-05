@@ -36,6 +36,26 @@ test_that("matchPoints returns draw points for tied matches", {
   expect_true(all(result$points == 2))
 })
 
+test_that("matchPoints keeps teams that only score from zone two", {
+  df <- make_modern_match_stats(
+    round = 1L,
+    game = 1L,
+    home_team = "Home",
+    away_team = "Away",
+    home_zone1 = NULL,
+    home_zone2 = 5L,
+    away_zone1 = 4L,
+    away_zone2 = NULL
+  )
+
+  result <- matchPoints(df)
+
+  expect_setequal(result$squadName, c("Home", "Away"))
+  expect_equal(result$goals[result$squadName == "Home"], 10)
+  expect_equal(result$points[result$squadName == "Home"], 4)
+  expect_equal(result$score_diff[result$squadName == "Away"], -6)
+})
+
 test_that("matchPoints_pre_2020 keeps old and new scoring totals", {
   df <- make_pre_2020_match_stats(
     round = 1L,

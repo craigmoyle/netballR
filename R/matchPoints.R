@@ -11,6 +11,10 @@
 #' @export
 matchPoints <- function(df) {
   ## This first section calculates points based on the old system.
+  home <- df %>%
+    dplyr::filter(stat == "homeTeam") %>%
+    dplyr::select(-period) %>%
+    dplyr::distinct()
   goals1 <- df %>%
     dplyr::filter(stat == "goal_from_zone1") %>%
     dplyr::group_by(squadName) %>%
@@ -19,25 +23,23 @@ matchPoints <- function(df) {
     dplyr::filter(stat == "goal_from_zone2") %>%
     dplyr::group_by(squadName) %>%
     dplyr::summarise(goals2 = sum(value, na.rm = TRUE) * 2, .groups = "drop")
-  goals <- dplyr::left_join(goals1, goals2, by = "squadName") %>%
+  goals <- home %>%
+    dplyr::left_join(goals1, by = "squadName") %>%
+    dplyr::left_join(goals2, by = "squadName") %>%
     dplyr::mutate(
+      goals = dplyr::coalesce(goals, 0),
       goals2 = dplyr::coalesce(goals2, 0),
       goals = goals + goals2
     ) %>%
     dplyr::select(-goals2)
-  home <- df %>%
-    dplyr::filter(stat == "homeTeam") %>%
-    dplyr::group_by(squadName) %>%
-    dplyr::select(-period) %>%
-    dplyr::distinct()
-  goals <- dplyr::left_join(goals, home, by = "squadName") %>%
+  goals <- goals %>%
     dplyr::arrange(value)
-  score_diff <- diff(goals[['goals']])
+  if (nrow(goals) != 2) {
+    stop("Match data must include exactly two squads.", call. = FALSE)
+  }
   goals <- goals %>%
     dplyr::mutate(
-      score_diff = score_diff,
-      score_diff = ifelse(value == 0, score_diff * (-1),
-        score_diff),
+      score_diff = goals - rev(goals),
       points = dplyr::case_when(
         score_diff > 0 ~ 4,
         score_diff < 0 ~ 0,
@@ -77,12 +79,12 @@ matchPoints_pre_2020 <- function(df) {
         dplyr::distinct()
     goals <- dplyr::left_join(goals, home, by = "squadName") %>%
         dplyr::arrange(value)
-    score_diff <- diff(goals[['goals']])
+    if (nrow(goals) != 2) {
+        stop("Match data must include exactly two squads.", call. = FALSE)
+    }
     goals <- goals %>%
         dplyr::mutate(
-                   score_diff = score_diff,
-                   score_diff = ifelse(value == 0, score_diff * (-1),
-                                       score_diff),
+                   score_diff = goals - rev(goals),
                    points = dplyr::case_when(
                                        score_diff > 0 ~ 2,
                                        score_diff < 0 ~ 0,

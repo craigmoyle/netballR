@@ -31,3 +31,18 @@ test_that("extract_match_stats fails loudly when matchStats is absent", {
     "did not include matchStats"
   )
 })
+
+test_that("downloadMatch validates identifiers before requesting data", {
+  expect_error(
+    downloadMatch("season-2025", 5, 3),
+    "comp_id must contain digits only"
+  )
+  expect_error(
+    downloadMatch("10083", 0, 3),
+    "round_id must be greater than or equal to 1"
+  )
+  expect_error(
+    downloadMatch("10083", 5, 1.5),
+    "game_id must contain digits only"
+  )
+})

@@ -12,8 +12,20 @@ test_that("tidyPlayers keeps player identity columns and drops displayName", {
   result <- tidyPlayers(make_sample_match(period_completed = 2))
 
   expect_true(all(result$period <= 2))
-  expect_equal(nrow(result), 8)
+  expect_equal(nrow(result), 16)
   expect_false("displayName" %in% names(result))
-  expect_setequal(unique(result$stat), c("feeds", "goals"))
+  expect_type(result$value, "character")
+  expect_setequal(
+    unique(result$stat),
+    c("feeds", "goals", "startingPositionCode", "currentPositionCode")
+  )
   expect_equal(unique(result$squadName[result$playerId == 1]), "Home")
+  expect_equal(
+    result$value[result$playerId == 1 & result$stat == "goals" & result$period == 1],
+    "5"
+  )
+  expect_equal(
+    result$value[result$playerId == 1 & result$stat == "startingPositionCode" & result$period == 1],
+    "GS"
+  )
 })

@@ -4,14 +4,14 @@
 \name{superNetballR-package}
 \alias{superNetballR}
 \alias{superNetballR-package}
-\title{Functions getting and manipulating Super Netball data.}
+\title{superNetballR: Download and Tidy Super Netball Statistics}
 \description{
-This package provides functions to easily download and manipulate data from super netball matches.
+Download Champion Data Super Netball match feeds and transform team and
+player statistics into tidy data frames for analysis.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://craigmoyle.github.io/superNetballR_updated}
   \item \url{https://github.com/craigmoyle/superNetballR_updated}
   \item Report bugs at \url{https://github.com/craigmoyle/superNetballR_updated/issues}
 }

@@ -16,3 +16,7 @@ A tidy dataframe containing player statistics.
 \code{tidyPlayers} Takes the downloaded match list, and tidies player
 statistics in preparation for further analysis.
 }
+\details{
+Player period stats include both numeric measures and position-code fields,
+so the long-form \code{value} column is stored as character data.
+}

@@ -7,6 +7,13 @@
 #'
 #' @export
 shinySuperNetballR <- function() {
+  if (!requireNamespace("shiny", quietly = TRUE)) {
+    stop("Package 'shiny' must be installed to run shinySuperNetballR().", call. = FALSE)
+  }
+  if (!requireNamespace("ggplot2", quietly = TRUE)) {
+    stop("Package 'ggplot2' must be installed to run shinySuperNetballR().", call. = FALSE)
+  }
+
   my_dir <- system.file(
     "shiny-examples", "superNetballR", package = "superNetballR"
   )
@@ -14,6 +21,5 @@ shinySuperNetballR <- function() {
     stop("Can't find the superNetballR shiny directory. Try re-installing `superNetballR`.", call. = FALSE)
   }
 
-  source(paste0(my_dir, '/team_series_module.R'))
   shiny::runApp(my_dir, display.mode = "normal")
 }

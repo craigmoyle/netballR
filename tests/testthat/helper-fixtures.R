@@ -55,12 +55,30 @@ make_sample_match <- function(period_completed = 2) {
     ),
     playerPeriodStats = list(
       player = list(
-        list(playerId = 1L, squadId = 10L, period = 1L, goals = 5L, feeds = 2L),
-        list(playerId = 1L, squadId = 10L, period = 2L, goals = 6L, feeds = 3L),
-        list(playerId = 1L, squadId = 10L, period = 3L, goals = 7L, feeds = 4L),
-        list(playerId = 2L, squadId = 20L, period = 1L, goals = 4L, feeds = 1L),
-        list(playerId = 2L, squadId = 20L, period = 2L, goals = 3L, feeds = 2L),
-        list(playerId = 2L, squadId = 20L, period = 3L, goals = 2L, feeds = 3L)
+        list(
+          playerId = 1L, squadId = 10L, period = 1L, goals = 5L, feeds = 2L,
+          startingPositionCode = "GS", currentPositionCode = "GS"
+        ),
+        list(
+          playerId = 1L, squadId = 10L, period = 2L, goals = 6L, feeds = 3L,
+          startingPositionCode = "GS", currentPositionCode = "GS"
+        ),
+        list(
+          playerId = 1L, squadId = 10L, period = 3L, goals = 7L, feeds = 4L,
+          startingPositionCode = "GS", currentPositionCode = "GS"
+        ),
+        list(
+          playerId = 2L, squadId = 20L, period = 1L, goals = 4L, feeds = 1L,
+          startingPositionCode = "GA", currentPositionCode = "GA"
+        ),
+        list(
+          playerId = 2L, squadId = 20L, period = 2L, goals = 3L, feeds = 2L,
+          startingPositionCode = "GA", currentPositionCode = "GA"
+        ),
+        list(
+          playerId = 2L, squadId = 20L, period = 3L, goals = 2L, feeds = 3L,
+          startingPositionCode = "GA", currentPositionCode = "GA"
+        )
       )
     )
   )
@@ -76,16 +94,19 @@ make_modern_match_stats <- function(
   away_zone1,
   away_zone2 = 0
 ) {
-  rows <- list(
+  make_stat_row <- function(team, stat_name, stat_value) {
     data.frame(
-      squadName = c(home_team, away_team),
-      stat = c("goal_from_zone1", "goal_from_zone1"),
-      value = c(home_zone1, away_zone1),
-      period = c(1L, 1L),
-      round = c(round, round),
-      game = c(game, game),
+      squadName = team,
+      stat = stat_name,
+      value = stat_value,
+      period = 1L,
+      round = round,
+      game = game,
       stringsAsFactors = FALSE
-    ),
+    )
+  }
+
+  rows <- list(
     data.frame(
       squadName = c(home_team, away_team),
       stat = c("homeTeam", "homeTeam"),
@@ -97,28 +118,20 @@ make_modern_match_stats <- function(
     )
   )
 
+  if (!is.null(home_zone1)) {
+    rows[[length(rows) + 1L]] <- make_stat_row(home_team, "goal_from_zone1", home_zone1)
+  }
+
+  if (!is.null(away_zone1)) {
+    rows[[length(rows) + 1L]] <- make_stat_row(away_team, "goal_from_zone1", away_zone1)
+  }
+
   if (!is.null(home_zone2)) {
-    rows[[length(rows) + 1L]] <- data.frame(
-      squadName = home_team,
-      stat = "goal_from_zone2",
-      value = home_zone2,
-      period = 1L,
-      round = round,
-      game = game,
-      stringsAsFactors = FALSE
-    )
+    rows[[length(rows) + 1L]] <- make_stat_row(home_team, "goal_from_zone2", home_zone2)
   }
 
   if (!is.null(away_zone2)) {
-    rows[[length(rows) + 1L]] <- data.frame(
-      squadName = away_team,
-      stat = "goal_from_zone2",
-      value = away_zone2,
-      period = 1L,
-      round = round,
-      game = game,
-      stringsAsFactors = FALSE
-    )
+    rows[[length(rows) + 1L]] <- make_stat_row(away_team, "goal_from_zone2", away_zone2)
   }
 
   do.call(rbind, rows)

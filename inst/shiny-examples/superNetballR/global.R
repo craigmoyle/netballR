@@ -7,7 +7,6 @@
 ## Time-stamp: <2021-05-04 12:38:40 (sprazza)>
 ################################################################################
 ################################################################################
-library(here)
 library(dplyr)
 library(ggplot2)
 library(shiny)
@@ -15,11 +14,11 @@ library(superNetballR)
 
 ################################################################################
 ## Load modules.
-modules_dir <- here::here("inst/shiny-examples/superNetballR/modules/")
-if (dir.exists(modules_dir)) {
-    lst_modules <- list.files(modules_dir, full.names = TRUE)
-    invisible(lapply(lst_modules, function(x) source(x, echo = FALSE)))
+app_dir <- system.file("shiny-examples", "superNetballR", package = "superNetballR")
+if (app_dir == "") {
+    stop("Can't find the superNetballR shiny directory.", call. = FALSE)
 }
+source(file.path(app_dir, "team_series_module.R"), local = TRUE)
 
 ################################################################################
 ## Load 2017 player data

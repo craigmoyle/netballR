@@ -3,14 +3,14 @@
 #' A dataset containing match statistics for all home and away and finals series
 #' matches from the 2017 super netball season, by period.
 #'
-#' @format A data frame with 15360 rows and 8 variables:
+#' @format A data frame with 15360 rows and 9 variables:
 #' \describe{
 #'   \item{squadId}{Unique squad number}
 #'   \item{squadName}{Full squad name}
 #'   \item{squadNickname}{Squad nickname}
-#'   \item{squadCode}{Short code for quad}
+#'   \item{squadCode}{Short code for squad}
 #'   \item{stat}{Statistic measured during the match}
-#'   \item{value}{Value of the statistic}
+#'   \item{value}{Character representation of the statistic value}
 #'   \item{period}{Which period the statistic is measured in}
 #'   \item{round}{Round number of the match}
 #'   \item{game}{Game number of the match}
@@ -22,7 +22,7 @@
 #' A dataset containing player statistics for all home and away and finals
 #' series matches from the 2017 super netball season, by period.
 #'
-#' @format A data frame with 163336 rows and 8 variables:
+#' @format A data frame with 153728 rows and 11 variables:
 #' \describe{
 #'   \item{playerId}{Unique player number}
 #'   \item{period}{Which period the statistic is measured in}
@@ -32,7 +32,7 @@
 #'   \item{surname}{Player surname}
 #'   \item{squadName}{Full squad name}
 #'   \item{stat}{Statistic measured during the match}
-#'   \item{value}{Value of the statistic}
+#'   \item{value}{Character representation of the statistic value}
 #'   \item{round}{Round number of the match}
 #'   \item{game}{Game number of the match}
 #' }

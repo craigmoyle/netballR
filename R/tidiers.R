@@ -45,6 +45,9 @@ tidyMatch <- function(match) {
 #'
 #' @param match List of match details.
 #' @return A tidy dataframe containing player statistics.
+#' @details
+#' Player period stats include both numeric measures and position-code fields,
+#' so the long-form \code{value} column is stored as character data.
 #' 
 #' @export
 tidyPlayers <- function(match) {
@@ -81,6 +84,6 @@ tidyPlayers <- function(match) {
         dplyr::mutate(
                    round = match$matchInfo$roundNumber,
                    game = match$matchInfo$matchNumber
-               )
+                )
     player_stats
 }

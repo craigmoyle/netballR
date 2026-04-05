@@ -19,8 +19,8 @@ ladders_pre_2020(df, round_num = NULL, game_num = NULL, old_system = FALSE)
 
 \item{game_num}{Game at which to calculate ladder positions. Optional.}
 
-\item{old_system}{Logical. Whether to sort by the old scoring system
-(defaults to FALSE).}
+\item{old_system}{Logical. Retained for compatibility and ignored for
+2020+ ladders.}
 }
 \value{
 Data frame containing the ladder position of all teams. If round and
@@ -34,5 +34,6 @@ Data frame containing the ladder position of all teams. If round and
 \code{ladders()} uses the current 2020+ scoring helpers, while
 \code{ladders_pre_2020()} uses the legacy scoring pipeline. Ladder
 percentages are protected against divide-by-zero by returning \code{Inf}
-when a team has not conceded.
+when a team has not conceded. Legacy ladders break ties on percentage after
+ordering by either \code{points_new} or \code{points}.
 }

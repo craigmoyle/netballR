@@ -5,7 +5,7 @@
 \alias{players_2017}
 \title{Season 2017 player data.}
 \format{
-A data frame with 163336 rows and 8 variables:
+A data frame with 153728 rows and 11 variables:
 \describe{
   \item{playerId}{Unique player number}
   \item{period}{Which period the statistic is measured in}
@@ -15,7 +15,7 @@ A data frame with 163336 rows and 8 variables:
   \item{surname}{Player surname}
   \item{squadName}{Full squad name}
   \item{stat}{Statistic measured during the match}
-  \item{value}{Value of the statistic}
+  \item{value}{Character representation of the statistic value}
   \item{round}{Round number of the match}
   \item{game}{Game number of the match}
 }
