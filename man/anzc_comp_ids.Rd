@@ -5,7 +5,7 @@
 \alias{anzc_comp_ids}
 \title{ANZ Championship and NZ National Netball League competition IDs.}
 \format{
-A tibble with 31 rows and 4 variables:
+A tibble with 35 rows and 4 variables:
 \describe{
   \item{comp_id}{Integer Champion Data competition identifier. Pass this
     value as \code{comp_id} to \code{\link{downloadMatch}} or
@@ -29,7 +29,7 @@ anzc_comp_ids
 }
 \description{
 A dataset mapping Champion Data \code{comp_id} values to the corresponding
-netball season and competition, covering every season from 2008 to 2023.
+netball season and competition, covering every season from 2008 to 2025.
 }
 \details{
 ANZ Championship seasons (2008--2016) featured both Australian and New
