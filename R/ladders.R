@@ -40,6 +40,12 @@ sort_ladder <- function(ladder, points_col) {
 #' when a team has not conceded. Legacy ladders break ties on percentage after
 #' ordering by either \code{points_new} or \code{points}.
 #'
+#' \strong{ANZ Championship}: ANZ Championship matches record scores in the
+#' \code{goals} statistic rather than the \code{goal_from_zone1} /
+#' \code{goal_from_zone2} statistics used by the 2020+ Super Netball super-shot
+#' era. Use \code{\link{ladders_pre_2020}} (and
+#' \code{\link{matchPoints_pre_2020}}) for all ANZ Championship seasons.
+#'
 #' @export
 ladders <- function(df, round_num = NULL, game_num = NULL, old_system = FALSE) {
   match_results <- limit_match_results(

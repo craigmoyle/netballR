@@ -8,7 +8,9 @@ downloadMatch(comp_id, round_id, game_id)
 }
 \arguments{
 \item{comp_id}{A string identifying which season the game is
-in. \code{comp_id} is different depending on regular season or finals.}
+in. \code{comp_id} is different depending on regular season or finals.
+See \code{\link{anzc_comp_ids}} for known ANZ Championship competition
+IDs. Super Netball comp IDs are documented in the package README.}
 
 \item{round_id}{An integer identifying which round the game is in. Finals
 reset round number to 1.}
@@ -27,10 +29,21 @@ A list containing game and player data for the match.
 \code{downloadMatch()} validates the supplied identifiers, retries transient
 HTTP failures, and raises an explicit error if the Champion Data response no
 longer includes a \code{matchStats} object.
+
+ANZ Championship matches use the same data format as Super Netball and can
+be downloaded with the same function by supplying the appropriate
+\code{comp_id}. Because ANZ Championship matches do not use the super-shot
+scoring zone, use \code{\link{ladders_pre_2020}} (and
+\code{\link{matchPoints_pre_2020}}) when calculating standings for ANZ
+Championship data. Use \code{\link{downloadFixture}} to discover the rounds
+and game numbers available for a given competition.
 }
 \examples{
 \dontrun{
 downloadMatch("10083", 1, 1)
+
+## ANZ Championship
+downloadMatch("10088", 1, 1)
 }
 
 }

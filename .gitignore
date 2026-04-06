@@ -39,3 +39,4 @@ docker/*
 /Rmd/sn-get-data.Rmd
 doc
 Meta
+*.Rcheck

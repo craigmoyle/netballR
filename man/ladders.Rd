@@ -36,4 +36,10 @@ Data frame containing the ladder position of all teams. If round and
 percentages are protected against divide-by-zero by returning \code{Inf}
 when a team has not conceded. Legacy ladders break ties on percentage after
 ordering by either \code{points_new} or \code{points}.
+
+\strong{ANZ Championship}: ANZ Championship matches record scores in the
+\code{goals} statistic rather than the \code{goal_from_zone1} /
+\code{goal_from_zone2} statistics used by the 2020+ Super Netball super-shot
+era. Use \code{\link{ladders_pre_2020}} (and
+\code{\link{matchPoints_pre_2020}}) for all ANZ Championship seasons.
 }

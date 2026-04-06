@@ -29,10 +29,31 @@ remotes::install_github("craigmoyle/superNetballR_updated@main")
 ## Current behavior
 
 - `downloadMatch()` validates competition, round, and game identifiers, retries transient HTTP failures, and errors clearly if the Champion Data payload is missing `matchStats`.
+- `downloadFixture()` fetches the full match schedule for any competition — use `?anzc_comp_ids` to find ANZ Championship and NZ National Netball League competition IDs.
 - `matchPoints()` and `ladders()` implement the current super shot scoring model for 2020+ data.
 - `matchPoints_pre_2020()` and `ladders_pre_2020()` remain available for legacy seasons and older points systems.
 - `team_colours` includes the current Melbourne Mavericks entry while retaining the historical Magpies row needed by the bundled 2017 data.
 - The package includes a `testthat` suite and a GitHub Actions `R-CMD-check` workflow for ongoing maintenance.
+
+## ANZ Championship / NZ National Netball League
+
+The same Champion Data feed powers both competitions.  Use `anzc_comp_ids` to look up the competition ID for any season, then call `downloadFixture()` to see available matches and `downloadMatch()` to fetch match data.  Because ANZ Championship data uses a `goals` stat rather than the super-shot zones introduced in 2020, use `ladders_pre_2020()` (not `ladders()`) when computing standings.
+
+``` r
+library(superNetballR)
+
+# Browse available ANZ / NZ Netball seasons
+anzc_comp_ids
+
+# Get the fixture for the 2024 NZ National Netball League regular season
+fixture <- downloadFixture(12427)
+
+# Download a specific match (round 1, game 1)
+match <- downloadMatch(12427, 1, 1)
+
+# Compute standings using the pre-super-shot scoring model
+standings <- ladders_pre_2020(matchPoints_pre_2020(match))
+```
 
 ## Development
 

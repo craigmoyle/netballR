@@ -1,9 +1,10 @@
 Package: superNetballR
 Title: Download and Tidy Super Netball Statistics
-Version: 0.1.0
+Version: 0.3.0
 Authors@R: person("Steve", "Lane", email = "lane.s@unimelb.edu.au", role = c("aut", "cre"))
-Description: Tools to download Champion Data Super Netball match feeds and
-    transform team and player statistics into tidy data frames for analysis.
+Description: Tools to download Champion Data match feeds for Super Netball and
+    the ANZ Championship / NZ National Netball League, and transform team and
+    player statistics into tidy data frames for analysis.
 Depends: R (>= 4.0.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
