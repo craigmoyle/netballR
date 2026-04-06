@@ -15,7 +15,7 @@
 *.html
 *.RData
 *.rds
-*.rda
+# *.rda excluded: R package data files in data/ must be committed
 *.tex
 *.fdb_latexmk
 *.fls
