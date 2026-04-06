@@ -18,7 +18,12 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Steve Lane \email{lane.s@unimelb.edu.au}
+\strong{Maintainer}: Craig Moyle \email{craig.moyle@mantelgroup.com.au}
+
+Authors:
+\itemize{
+  \item Steve Lane \email{lane.s@unimelb.edu.au}
+}
 
 }
 \keyword{internal}

@@ -10,7 +10,7 @@
 #'   \item{squadNickname}{Squad nickname}
 #'   \item{squadCode}{Short code for squad}
 #'   \item{stat}{Statistic measured during the match}
-#'   \item{value}{Character representation of the statistic value}
+#'   \item{value}{Integer statistic value.}
 #'   \item{period}{Which period the statistic is measured in}
 #'   \item{round}{Round number of the match}
 #'   \item{game}{Game number of the match}
@@ -76,11 +76,13 @@
 #' computing standings for any ANZ Championship or NZ National Netball League
 #' season.
 #'
+#' @usage data(anzc_comp_ids)
 #' @source Competition IDs identified by probing the Champion Data feed at
 #'   \url{https://mc.championdata.com/anz_championship/} and confirmed by
 #'   inspecting team names and match dates in the returned fixture data.
 #'
 #' @examples
+#' data(anzc_comp_ids)
 #' anzc_comp_ids
 #'
 #' # Find the regular-season comp_id for 2019

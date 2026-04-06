@@ -4,6 +4,30 @@ All notable changes in this fork are documented here.
 
 This changelog covers the changes introduced in `craigmoyle/superNetballR_updated` since the fork diverged from the original `SteveLane/superNetballR` project published at <https://stevelane.github.io/superNetballR/>.
 
+## 0.3.1 - 2026-04-07
+
+Code quality and correctness improvements from a full package review.
+
+### Fixed
+
+- `matchPoints()` now warns when called on data that contains neither `goal_from_zone1` nor `goal_from_zone2`, guiding users to `matchPoints_pre_2020()` for ANZ Championship or pre-2020 data instead of silently returning a spurious 0-0 result.
+- `ladders_pre_2020()` documentation for `old_system` parameter now correctly describes its effect (selects the 2-point vs 4-point sort column) rather than incorrectly stating it is ignored.
+- `season_2017` dataset documentation corrected: `value` column is integer, not character.
+- Removed dead `.unUnload` hook in `zzz.R` (typo for `.onUnload`; would have errored if called since the package has no compiled code).
+- Removed spurious `group_by(squadName)` in `matchPoints_pre_2020()` that left grouped state on the `home` data frame.
+- Removed redundant second `group_by(round, game)` after `nest()` in `matchResults()` and `matchResults_pre_2020()`.
+
+### Changed
+
+- Replaced `magrittr` pipe (`%>%`) with the native R pipe (`|>`) throughout. Minimum R version bumped from 4.0.0 to 4.1.0.
+- `magrittr` removed from `Imports`; `dplyr (>= 1.1.0)` version constraint added.
+- `case_when(TRUE ~ ...)` fallthrough sentinels updated to the modern `.default =` idiom in `matchPoints.R`.
+- `globalVariables()` declarations consolidated from `zzz.R` + `superNetballR.R` into a single call; missing names (`goals2`, `isHome`, `games`, `qtr_diff`) added.
+- Added Craig Moyle as package author/maintainer in `DESCRIPTION`.
+- `%||%` null-coalescing operator annotated with `@noRd`.
+- CI: removed the `roxygenise()` step from the GitHub Actions workflow — committed `.Rd` files are used directly by `R CMD check`.
+- Dependabot configured for weekly GitHub Actions version updates.
+
 ## 0.3.0 - 2025-07-30
 
 ANZ Championship and NZ National Netball League support.

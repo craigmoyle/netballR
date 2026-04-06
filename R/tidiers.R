@@ -24,13 +24,13 @@ tidyMatch <- function(match) {
     team_stats <- dplyr::left_join(team_stats, home_team, by = "squadId")
     ## Check if there was overtime (matchInfo)
     final_period <- match$matchInfo$periodCompleted
-    team_stats <- team_stats %>%
-        dplyr::filter(period <= final_period) %>%
+    team_stats <- team_stats |>
+        dplyr::filter(period <= final_period) |>
         tidyr::pivot_longer(
             cols = -c(squadId, squadName, squadNickname, squadCode, period),
             names_to = "stat",
             values_to = "value"
-        ) %>%
+        ) |>
         dplyr::mutate(
                    round = match$matchInfo$roundNumber,
                    game = match$matchInfo$matchNumber
@@ -57,8 +57,8 @@ tidyPlayers <- function(match) {
     player_info <- dplyr::bind_rows(player_info)
     player_stats <- dplyr::left_join(player_stats, player_info, by = "playerId")
     if (all(c("squadId.x", "squadId.y") %in% names(player_stats))) {
-        player_stats <- player_stats %>%
-            dplyr::mutate(squadId = dplyr::coalesce(squadId.x, squadId.y)) %>%
+        player_stats <- player_stats |>
+            dplyr::mutate(squadId = dplyr::coalesce(squadId.x, squadId.y)) |>
             dplyr::select(-squadId.x, -squadId.y)
     }
     squad_info <- match$teamInfo$team
@@ -69,9 +69,9 @@ tidyPlayers <- function(match) {
     )
     ## Check if there was overtime (matchInfo)
     final_period <- match$matchInfo$periodCompleted
-    player_stats <- player_stats %>%
-        dplyr::filter(period <= final_period) %>%
-        dplyr::select(-displayName) %>%
+    player_stats <- player_stats |>
+        dplyr::filter(period <= final_period) |>
+        dplyr::select(-displayName) |>
         tidyr::pivot_longer(
             cols = -c(
                 playerId, shortDisplayName, firstname, surname,
@@ -80,7 +80,7 @@ tidyPlayers <- function(match) {
             names_to = "stat",
             values_to = "value",
             values_transform = list(value = as.character)
-        ) %>%
+        ) |>
         dplyr::mutate(
                    round = match$matchInfo$roundNumber,
                    game = match$matchInfo$matchNumber

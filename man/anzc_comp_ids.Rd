@@ -25,7 +25,7 @@ Competition IDs identified by probing the Champion Data feed at
   inspecting team names and match dates in the returned fixture data.
 }
 \usage{
-anzc_comp_ids
+data(anzc_comp_ids)
 }
 \description{
 A dataset mapping Champion Data \code{comp_id} values to the corresponding
@@ -44,6 +44,7 @@ computing standings for any ANZ Championship or NZ National Netball League
 season.
 }
 \examples{
+data(anzc_comp_ids)
 anzc_comp_ids
 
 # Find the regular-season comp_id for 2019

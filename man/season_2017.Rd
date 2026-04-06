@@ -12,7 +12,7 @@ A data frame with 15360 rows and 9 variables:
   \item{squadNickname}{Squad nickname}
   \item{squadCode}{Short code for squad}
   \item{stat}{Statistic measured during the match}
-  \item{value}{Character representation of the statistic value}
+  \item{value}{Integer statistic value.}
   \item{period}{Which period the statistic is measured in}
   \item{round}{Round number of the match}
   \item{game}{Game number of the match}

@@ -92,6 +92,7 @@ extract_fixture <- function(payload) {
     dplyr::bind_rows(rows)
 }
 
+#' @noRd
 `%||%` <- function(x, y) if (is.null(x)) y else x
 
 #' Download data from a single match

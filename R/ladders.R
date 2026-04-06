@@ -27,8 +27,11 @@ sort_ladder <- function(ladder, points_col) {
 #' @param df Data frame containing season match statistics.
 #' @param round_num Round at which to calculate ladder positions. Optional.
 #' @param game_num Game at which to calculate ladder positions. Optional.
-#' @param old_system Logical. Retained for compatibility and ignored for
-#'     2020+ ladders.
+#' @param old_system Logical. For \code{ladders()}, retained for compatibility
+#'     and ignored (2020+ scoring always applies). For
+#'     \code{ladders_pre_2020()}, if \code{TRUE} sorts the ladder by the
+#'     legacy 2-point win system (\code{points}); if \code{FALSE} (default)
+#'     sorts by the updated 4-point win system (\code{points_new}).
 #'
 #' @return Data frame containing the ladder position of all teams. If round and
 #'     game are not supplied, the ladder position is calculated using all match
@@ -53,8 +56,8 @@ ladders <- function(df, round_num = NULL, game_num = NULL, old_system = FALSE) {
     round_num = round_num,
     game_num = game_num
   )
-  ladder <- match_results %>%
-    dplyr::group_by(squadName) %>%
+  ladder <- match_results |>
+    dplyr::group_by(squadName) |>
     dplyr::summarise(
       games = dplyr::n(),
       goals_for = sum(goals),
@@ -69,25 +72,21 @@ ladders <- function(df, round_num = NULL, game_num = NULL, old_system = FALSE) {
 #' @rdname ladders
 #' @export
 matchResults <- function(df) {
-  df <- df %>%
-    dplyr::group_by(round, game) %>%
-    tidyr::nest() %>%
-    dplyr::group_by(round, game) %>%
-    dplyr::mutate(game_results = purrr::map(data, matchPoints)) %>%
-    dplyr::select(-data) %>%
+  df |>
+    dplyr::group_by(round, game) |>
+    tidyr::nest() |>
+    dplyr::mutate(game_results = purrr::map(data, matchPoints)) |>
+    dplyr::select(-data) |>
     tidyr::unnest(cols = c(game_results))
-  df
 }
 
 matchResults_pre_2020 <- function(df) {
-  df <- df %>%
-    dplyr::group_by(round, game) %>%
-    tidyr::nest() %>%
-    dplyr::group_by(round, game) %>%
-    dplyr::mutate(game_results = purrr::map(data, matchPoints_pre_2020)) %>%
-    dplyr::select(-data) %>%
+  df |>
+    dplyr::group_by(round, game) |>
+    tidyr::nest() |>
+    dplyr::mutate(game_results = purrr::map(data, matchPoints_pre_2020)) |>
+    dplyr::select(-data) |>
     tidyr::unnest(cols = c(game_results))
-  df
 }
 
 #' @rdname ladders
@@ -98,8 +97,8 @@ ladders_pre_2020 <- function(df, round_num = NULL, game_num = NULL, old_system =
     round_num = round_num,
     game_num = game_num
   )
-  ladder <- match_results %>%
-    dplyr::group_by(squadName) %>%
+  ladder <- match_results |>
+    dplyr::group_by(squadName) |>
     dplyr::summarise(
       games = dplyr::n(),
       goals_for = sum(goals),

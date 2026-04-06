@@ -19,8 +19,11 @@ ladders_pre_2020(df, round_num = NULL, game_num = NULL, old_system = FALSE)
 
 \item{game_num}{Game at which to calculate ladder positions. Optional.}
 
-\item{old_system}{Logical. Retained for compatibility and ignored for
-2020+ ladders.}
+\item{old_system}{Logical. For \code{ladders()}, retained for compatibility
+and ignored (2020+ scoring always applies). For
+\code{ladders_pre_2020()}, if \code{TRUE} sorts the ladder by the
+legacy 2-point win system (\code{points}); if \code{FALSE} (default)
+sorts by the updated 4-point win system (\code{points_new}).}
 }
 \value{
 Data frame containing the ladder position of all teams. If round and
