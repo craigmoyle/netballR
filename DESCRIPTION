@@ -1,6 +1,6 @@
 Package: netballR
 Title: Download and Tidy Netball Match Statistics
-Version: 1.0.0
+Version: 0.4.0
 Authors@R: c(
     person("Steve", "Lane", email = "lane.s@unimelb.edu.au", role = "aut"),
     person("Craig", "Moyle", email = "craig.moyle@mantelgroup.com.au",
