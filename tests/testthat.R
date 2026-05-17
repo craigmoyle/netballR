@@ -1,4 +1,4 @@
 library(testthat)
-library(superNetballR)
+library(netballR)
 
-test_check("superNetballR")
+test_check("netballR")

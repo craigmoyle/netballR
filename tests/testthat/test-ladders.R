@@ -105,7 +105,7 @@ test_that("matchResults_pre_2020 prefers matchId when distinct matches share rou
     )
   )
 
-  match_results <- superNetballR:::matchResults_pre_2020(season)
+  match_results <- netballR:::matchResults_pre_2020(season)
 
   expect_equal(nrow(match_results), 4)
   expect_setequal(match_results$squadName, c("A", "B", "C", "D"))

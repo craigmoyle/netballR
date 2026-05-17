@@ -1,14 +1,14 @@
-Package: superNetballR
-Title: Download and Tidy Super Netball Statistics
-Version: 0.3.1
+Package: netballR
+Title: Download and Tidy Netball Match Statistics
+Version: 1.0.0
 Authors@R: c(
     person("Steve", "Lane", email = "lane.s@unimelb.edu.au", role = "aut"),
     person("Craig", "Moyle", email = "craig.moyle@mantelgroup.com.au",
            role = c("aut", "cre"))
   )
-Description: Tools to download Champion Data match feeds for Super Netball and
-    the ANZ Championship / NZ National Netball League, and transform team and
-    player statistics into tidy data frames for analysis.
+Description: Tools to download Champion Data match feeds for netball
+    competitions and transform team and player statistics into tidy data
+    frames for analysis.
 Depends: R (>= 4.1.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -23,7 +23,7 @@ Imports: dplyr (>= 1.1.0),
     httr,
     purrr,
     tidyr
-URL: https://github.com/craigmoyle/superNetballR_updated
-BugReports: https://github.com/craigmoyle/superNetballR_updated/issues
+URL: https://github.com/craigmoyle/netballR
+BugReports: https://github.com/craigmoyle/netballR/issues
 Config/testthat/edition: 3
 Config/roxygen2/version: 8.0.0

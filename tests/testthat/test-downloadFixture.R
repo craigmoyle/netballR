@@ -1,37 +1,37 @@
 test_that("build_fixture_url validates and formats the request URL", {
   expect_equal(
-    superNetballR:::build_fixture_url("10088"),
+    netballR:::build_fixture_url("10088"),
     "https://mc.championdata.com/data/10088/fixture.json"
   )
   expect_equal(
-    superNetballR:::build_fixture_url(10088),
+    netballR:::build_fixture_url(10088),
     "https://mc.championdata.com/data/10088/fixture.json"
   )
 
   expect_error(
-    superNetballR:::build_fixture_url("anz-2017"),
+    netballR:::build_fixture_url("anz-2017"),
     "comp_id must contain digits only"
   )
   expect_error(
-    superNetballR:::build_fixture_url(NA),
+    netballR:::build_fixture_url(NA),
     "comp_id must be a single value"
   )
 })
 
 test_that("extract_fixture fails loudly when fixture key is absent", {
   expect_error(
-    superNetballR:::extract_fixture(list()),
+    netballR:::extract_fixture(list()),
     "did not include fixture"
   )
   expect_error(
-    superNetballR:::extract_fixture(list(matchStats = list())),
+    netballR:::extract_fixture(list(matchStats = list())),
     "did not include fixture"
   )
 })
 
 test_that("extract_fixture returns an empty tibble when match list is empty", {
   payload <- list(fixture = list(match = list()))
-  result <- superNetballR:::extract_fixture(payload)
+  result <- netballR:::extract_fixture(payload)
   expect_s3_class(result, "tbl_df")
   expect_equal(nrow(result), 0L)
   expect_true(all(c("round", "game", "matchId", "matchStatus",
@@ -72,7 +72,7 @@ test_that("extract_fixture parses complete match rows correctly", {
     )
   )
 
-  result <- superNetballR:::extract_fixture(payload)
+  result <- netballR:::extract_fixture(payload)
 
   expect_s3_class(result, "tbl_df")
   expect_equal(nrow(result), 2L)
