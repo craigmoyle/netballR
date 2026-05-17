@@ -4,9 +4,9 @@
 \name{netballR-package}
 \alias{netballR}
 \alias{netballR-package}
-\title{superNetballR: Download and Tidy Super Netball Statistics}
+\title{netballR: Download and Tidy Netball Statistics}
 \description{
-Download Champion Data Super Netball match feeds and transform team and
+Download Champion Data netball match feeds and transform team and
 player statistics into tidy data frames for analysis.
 }
 \seealso{

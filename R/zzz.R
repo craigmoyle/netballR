@@ -1,1 +1,1 @@
-## Nothing required here — see superNetballR.R for globalVariables declarations.
+## Nothing required here — see netballR-package.R for globalVariables declarations.

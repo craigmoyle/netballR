@@ -1,6 +1,6 @@
-#' superNetballR: Download and Tidy Super Netball Statistics
+#' netballR: Download and Tidy Netball Statistics
 #'
-#' Download Champion Data Super Netball match feeds and transform team and
+#' Download Champion Data netball match feeds and transform team and
 #' player statistics into tidy data frames for analysis.
 #'
 #' @keywords internal

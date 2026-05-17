@@ -10,7 +10,8 @@ downloadMatch(comp_id, round_id, game_id)
 \item{comp_id}{A string identifying which season the game is
 in. \code{comp_id} is different depending on regular season or finals.
 See \code{\link{anzc_comp_ids}} for known ANZ Championship competition
-IDs. Super Netball comp IDs are documented in the package README.}
+IDs, or \code{\link{listCompetitionsNetballAus}} for the broader live
+catalogue exposed by the Champion Data \code{netball_aus} application.}
 
 \item{round_id}{An integer identifying which round the game is in. Finals
 reset round number to 1.}
