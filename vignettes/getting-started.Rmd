@@ -1,10 +1,10 @@
 ---
-title: "Getting Started with superNetballR"
+title: "Getting Started with netballR"
 author: "Steve Lane and Craig Moyle"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Getting Started with superNetballR}
+  %\VignetteIndexEntry{Getting Started with netballR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-This vignette provides an overview to get you started with using `superNetballR`. The package ships with the full 2017 season match and player statistics, while the live Champion Data iStats portal still publishes compatible match JSON for current seasons.
+This vignette provides an overview to get you started with using `netballR`. The package ships with the full 2017 season match and player statistics, while the live Champion Data iStats portal still publishes compatible match JSON for current seasons.
 
 *Current fork note*: the package has been updated for the post-2020 super shot scoring model, and `downloadMatch()` now validates competition, round, and game identifiers before requesting data.
 
@@ -30,11 +30,13 @@ Data are sourced from `https://mc.championdata.com/data/` using competition, rou
 
 If the live endpoint returns a transient HTTP error, `downloadMatch()` will retry before failing. If the response no longer includes a `matchStats` object, the function stops with an explicit error so schema changes are easier to detect.
 
+Use `listCompetitionsNetballAus()` when you want to discover the broader live catalogue exposed by the Champion Data `netball_aus` application before choosing a `comp_id`.
+
 To download statistics from a single match, you use the `downloadMatch` function. As an example, the following code will download the match from round 5, game 3:
 
 ```{r get-data-function,eval=FALSE}
 library(dplyr)
-library(superNetballR)
+library(netballR)
 round5_game3 <- downloadMatch("10083", 5, 3)
 
 ```
@@ -43,7 +45,7 @@ The downloaded object is a list, containing detailed statistics (including perio
 
 ```{r source-data,echo=FALSE,warning=FALSE,message=FALSE}
 library(dplyr)
-library(superNetballR)
+library(netballR)
 data(round5_game3)
 
 ```
@@ -82,7 +84,7 @@ tidied_players
 
 # Season Data and Ladders
 
-Provided with the `superNetballR` package is the full 2017 season match and player statistics in tidied format. These have been obtained using the previously described methods, tidied, and then combined by rows to produce a single data frame:
+The package still ships with the full 2017 season match and player statistics in tidied format. These have been obtained using the previously described methods, tidied, and then combined by rows to produce a single data frame:
 
 ```{r season-2017}
 data(season_2017)

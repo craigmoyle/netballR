@@ -102,7 +102,8 @@ extract_fixture <- function(payload) {
 #' @param comp_id A string identifying which season the game is
 #'     in. \code{comp_id} is different depending on regular season or finals.
 #'     See \code{\link{anzc_comp_ids}} for known ANZ Championship competition
-#'     IDs. Super Netball comp IDs are documented in the package README.
+#'     IDs, or \code{\link{listCompetitionsNetballAus}} for the broader live
+#'     catalogue exposed by the Champion Data \code{netball_aus} application.
 #' @param round_id An integer identifying which round the game is in. Finals
 #'     reset round number to 1.
 #' @param game_id An integer indentifying which game in the round to
@@ -156,8 +157,9 @@ downloadMatch <- function(comp_id, round_id, game_id) {
 #' competition, returning one row per match.
 #'
 #' @param comp_id A string identifying the competition. See
-#'     \code{\link{anzc_comp_ids}} for known ANZ Championship competition IDs.
-#'     Super Netball comp IDs are documented in the package README.
+#'     \code{\link{anzc_comp_ids}} for known ANZ Championship competition IDs
+#'     or \code{\link{listCompetitionsNetballAus}} for the broader live
+#'     catalogue exposed by the Champion Data \code{netball_aus} application.
 #' @return A \code{\link[dplyr]{tibble}} with one row per match and columns:
 #'   \describe{
 #'     \item{round}{Round number.}
@@ -179,7 +181,9 @@ downloadMatch <- function(comp_id, round_id, game_id) {
 #' @details
 #' \code{downloadFixture()} is the recommended starting point when working with
 #' a new competition: it shows which rounds and game numbers are available so
-#' you can pass them to \code{\link{downloadMatch}}.
+#' you can pass them to \code{\link{downloadMatch}}. Use
+#' \code{\link{listCompetitionsNetballAus}} when you need to discover live
+#' competition IDs from the broader \code{netball_aus} catalogue first.
 #'
 #' The function validates \code{comp_id}, retries transient HTTP failures, and
 #' raises an explicit error if the Champion Data response does not include a

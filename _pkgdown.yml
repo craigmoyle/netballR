@@ -12,4 +12,4 @@ navbar:
   type: inverse
   right:
     - icon: fa-github fa-lg
-      href: https://github.com/craigmoyle/superNetballR_updated/
+      href: https://github.com/craigmoyle/netballR/

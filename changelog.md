@@ -1,8 +1,15 @@
 # Changelog
 
-All notable changes in this fork are documented here.
+All notable changes in this project are documented here.
 
-This changelog covers the changes introduced in `craigmoyle/superNetballR_updated` since the fork diverged from the original `SteveLane/superNetballR` project published at <https://stevelane.github.io/superNetballR/>.
+This changelog covers the changes introduced in `craigmoyle/netballR` since the fork diverged from the original `SteveLane/superNetballR` (historical upstream) project published at <https://stevelane.github.io/superNetballR/>.
+
+## netballR 1.0.0
+
+- Breaking rename: package and repository move from `superNetballR` / `superNetballR_updated` to `netballR`.
+- Broadened package positioning from Super Netball-only to general netball competition support.
+- Added live competition discovery via the Champion Data `netball_aus` application settings catalogue.
+- Kept fixture and match downloads on the existing Champion Data `/data/<comp_id>/...` transport.
 
 ## 0.3.1 - 2026-04-07
 
