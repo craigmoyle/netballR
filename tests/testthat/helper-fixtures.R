@@ -173,3 +173,49 @@ make_pre_2020_match_stats <- function(
     )
   )
 }
+
+make_modern_match_stats_with_id <- function(
+  match_id,
+  round,
+  game,
+  home_team,
+  away_team,
+  home_zone1,
+  home_zone2 = 0,
+  away_zone1,
+  away_zone2 = 0
+) {
+  out <- make_modern_match_stats(
+    round = round,
+    game = game,
+    home_team = home_team,
+    away_team = away_team,
+    home_zone1 = home_zone1,
+    home_zone2 = home_zone2,
+    away_zone1 = away_zone1,
+    away_zone2 = away_zone2
+  )
+  out$matchId <- match_id
+  out
+}
+
+make_pre_2020_match_stats_with_id <- function(
+  match_id,
+  round,
+  game,
+  home_team,
+  away_team,
+  home_goals,
+  away_goals
+) {
+  out <- make_pre_2020_match_stats(
+    round = round,
+    game = game,
+    home_team = home_team,
+    away_team = away_team,
+    home_goals = home_goals,
+    away_goals = away_goals
+  )
+  out$matchId <- match_id
+  out
+}

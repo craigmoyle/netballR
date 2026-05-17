@@ -77,3 +77,49 @@ test_that("ladders_pre_2020 breaks ties on percentage", {
   expect_equal(ladder$squadName[[1]], "A")
   expect_gt(ladder$percentage[[1]], ladder$percentage[[2]])
 })
+
+test_that("matchResults prefers matchId when distinct matches share round and game", {
+  season <- rbind(
+    make_modern_match_stats_with_id(1001L, 1L, 1L, "A", "B", 10L, 0L, 8L, 0L),
+    make_modern_match_stats_with_id(1002L, 1L, 1L, "C", "D", 9L, 0L, 11L, 0L)
+  )
+
+  match_results <- matchResults(season)
+
+  expect_equal(nrow(match_results), 4)
+  expect_setequal(match_results$squadName, c("A", "B", "C", "D"))
+  expect_setequal(match_results$matchId, c(1001L, 1002L))
+})
+
+test_that("matchResults_pre_2020 prefers matchId when distinct matches share round and game", {
+  season <- rbind(
+    make_pre_2020_match_stats_with_id(
+      2001L, 1L, 1L, "A", "B",
+      home_goals = c(10L, 8L, 7L, 6L),
+      away_goals = c(8L, 7L, 6L, 5L)
+    ),
+    make_pre_2020_match_stats_with_id(
+      2002L, 1L, 1L, "C", "D",
+      home_goals = c(6L, 7L, 8L, 9L),
+      away_goals = c(7L, 7L, 7L, 7L)
+    )
+  )
+
+  match_results <- superNetballR:::matchResults_pre_2020(season)
+
+  expect_equal(nrow(match_results), 4)
+  expect_setequal(match_results$squadName, c("A", "B", "C", "D"))
+  expect_setequal(match_results$matchId, c(2001L, 2002L))
+})
+
+test_that("matchResults falls back to round and game when matchId is absent", {
+  season <- rbind(
+    make_modern_match_stats(1L, 1L, "A", "B", 10L, 0L, 8L, 0L),
+    make_modern_match_stats(2L, 1L, "C", "D", 7L, 0L, 9L, 0L)
+  )
+
+  match_results <- matchResults(season)
+
+  expect_equal(nrow(match_results), 4)
+  expect_false("matchId" %in% names(match_results))
+})

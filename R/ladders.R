@@ -69,11 +69,19 @@ ladders <- function(df, round_num = NULL, game_num = NULL, old_system = FALSE) {
   sort_ladder(ladder, "points")
 }
 
+group_match_data <- function(df) {
+  if ("matchId" %in% names(df)) {
+    return(dplyr::group_by(df, matchId, round, game))
+  }
+
+  dplyr::group_by(df, round, game)
+}
+
 #' @rdname ladders
 #' @export
 matchResults <- function(df) {
   df |>
-    dplyr::group_by(round, game) |>
+    group_match_data() |>
     tidyr::nest() |>
     dplyr::mutate(game_results = purrr::map(data, matchPoints)) |>
     dplyr::select(-data) |>
@@ -82,7 +90,7 @@ matchResults <- function(df) {
 
 matchResults_pre_2020 <- function(df) {
   df |>
-    dplyr::group_by(round, game) |>
+    group_match_data() |>
     tidyr::nest() |>
     dplyr::mutate(game_results = purrr::map(data, matchPoints_pre_2020)) |>
     dplyr::select(-data) |>

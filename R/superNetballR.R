@@ -12,7 +12,7 @@ if (getRversion() >= "2.15.1") {
         ## match/player column names
         "squadId", "homeTeam", "period", "stat", "value", "squadName",
         "squadNickname", "squadCode", "round", "game", "displayName",
-        "playerId", "shortDisplayName", "firstname", "surname",
+        "matchId", "playerId", "shortDisplayName", "firstname", "surname",
         ## scoring / ladder names
         "goals", "goals2", "score_diff", "points", "points_new",
         "goals_for", "goals_against", "percentage", "isHome",
