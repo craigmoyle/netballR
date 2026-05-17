@@ -6,6 +6,9 @@ test_that("tidyMatch returns completed periods in long format", {
   expect_setequal(unique(result$stat), c("gains", "goalAttempts", "homeTeam"))
   expect_equal(unique(result$value[result$squadName == "Home" & result$stat == "homeTeam"]), 1)
   expect_equal(unique(result$value[result$squadName == "Away" & result$stat == "homeTeam"]), 0)
+  expect_true("matchId" %in% names(result))
+  expect_equal(tail(names(result), 3), c("round", "game", "matchId"))
+  expect_equal(unique(result$matchId), 500503L)
 })
 
 test_that("tidyPlayers keeps player identity columns and drops displayName", {
@@ -28,4 +31,7 @@ test_that("tidyPlayers keeps player identity columns and drops displayName", {
     result$value[result$playerId == 1 & result$stat == "startingPositionCode" & result$period == 1],
     "GS"
   )
+  expect_true("matchId" %in% names(result))
+  expect_equal(tail(names(result), 3), c("round", "game", "matchId"))
+  expect_equal(unique(result$matchId), 500503L)
 })

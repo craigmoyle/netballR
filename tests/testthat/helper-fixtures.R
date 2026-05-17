@@ -5,7 +5,8 @@ make_sample_match <- function(period_completed = 2) {
       awaySquadId = 20L,
       periodCompleted = period_completed,
       roundNumber = 5L,
-      matchNumber = 3L
+      matchNumber = 3L,
+      matchId = 500503L
     ),
     teamInfo = list(
       team = list(

@@ -33,7 +33,8 @@ tidyMatch <- function(match) {
         ) |>
         dplyr::mutate(
                    round = match$matchInfo$roundNumber,
-                   game = match$matchInfo$matchNumber
+                   game = match$matchInfo$matchNumber,
+                   matchId = match$matchInfo$matchId
                )
     team_stats
 }
@@ -83,7 +84,8 @@ tidyPlayers <- function(match) {
         ) |>
         dplyr::mutate(
                    round = match$matchInfo$roundNumber,
-                   game = match$matchInfo$matchNumber
+                   game = match$matchInfo$matchNumber,
+                   matchId = match$matchInfo$matchId
                 )
     player_stats
 }
