@@ -43,6 +43,10 @@ sort_ladder <- function(ladder, points_col) {
 #' when a team has not conceded. Legacy ladders break ties on percentage after
 #' ordering by either \code{points_new} or \code{points}.
 #'
+#' When a tidy input data frame includes \code{matchId}, the internal
+#' match-result helpers use it as the grouping key; otherwise they fall back to
+#' the legacy \code{round}/\code{game} grouping used by bundled datasets.
+#'
 #' \strong{ANZ Championship}: ANZ Championship matches record scores in the
 #' \code{goals} statistic rather than the \code{goal_from_zone1} /
 #' \code{goal_from_zone2} statistics used by the 2020+ Super Netball super-shot

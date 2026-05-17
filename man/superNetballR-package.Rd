@@ -22,6 +22,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Craig Moyle \email{craig.moyle@mantelgroup.com.au}
   \item Steve Lane \email{lane.s@unimelb.edu.au}
 }
 

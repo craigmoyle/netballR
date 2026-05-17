@@ -10,7 +10,9 @@ tidyMatch(match)
 \item{match}{List of match details.}
 }
 \value{
-A tidy dataframe containing match statistics.
+A tidy dataframe containing match statistics. Live tidy outputs
+  append the Champion Data \code{matchId}, which uniquely identifies the
+  source match.
 }
 \description{
 \code{tidyMatch} Takes the downloaded match list, and tidies match statistics

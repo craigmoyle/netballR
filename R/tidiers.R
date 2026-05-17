@@ -4,7 +4,9 @@
 #' in preparation for further analysis.
 #'
 #' @param match List of match details.
-#' @return A tidy dataframe containing match statistics.
+#' @return A tidy dataframe containing match statistics. Live tidy outputs
+#'   append the Champion Data \code{matchId}, which uniquely identifies the
+#'   source match.
 #' 
 #' @export
 tidyMatch <- function(match) {
@@ -45,7 +47,9 @@ tidyMatch <- function(match) {
 #' statistics in preparation for further analysis.
 #'
 #' @param match List of match details.
-#' @return A tidy dataframe containing player statistics.
+#' @return A tidy dataframe containing player statistics. Live tidy outputs
+#'   append the Champion Data \code{matchId}, which uniquely identifies the
+#'   source match.
 #' @details
 #' Player period stats include both numeric measures and position-code fields,
 #' so the long-form \code{value} column is stored as character data.
