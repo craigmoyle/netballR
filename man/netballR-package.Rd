@@ -12,6 +12,7 @@ player statistics into tidy data frames for analysis.
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://craigmoyle.github.io/netballR/}
   \item \url{https://github.com/craigmoyle/netballR}
   \item Report bugs at \url{https://github.com/craigmoyle/netballR/issues}
 }

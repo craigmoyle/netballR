@@ -124,13 +124,13 @@
 </h2>
 <p>Use <code><a href="reference/listCompetitionsNetballAus.html">listCompetitionsNetballAus()</a></code> to inspect the live competition catalogue exposed by the Champion Data <code>netball_aus</code> application.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/craigmoyle/netballR" class="external-link">netballR</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://craigmoyle.github.io/netballR/">netballR</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">competitions</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/listCompetitionsNetballAus.html">listCompetitionsNetballAus</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">competitions</span></span></code></pre></div>
 <p>The returned <code>comp_id</code> values work directly with <code><a href="reference/downloadFixture.html">downloadFixture()</a></code> and <code><a href="reference/downloadMatch.html">downloadMatch()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/craigmoyle/netballR" class="external-link">netballR</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://craigmoyle.github.io/netballR/">netballR</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">competitions</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/listCompetitionsNetballAus.html">listCompetitionsNetballAus</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">comp_id</span> <span class="op">&lt;-</span> <span class="va">competitions</span><span class="op">$</span><span class="va">comp_id</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
@@ -144,7 +144,7 @@
 </h2>
 <p>The package still includes <code>anzc_comp_ids</code> for historical ANZ Championship and NZ National Netball League workflows.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/craigmoyle/netballR" class="external-link">netballR</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://craigmoyle.github.io/netballR/">netballR</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">anzc_comp_ids</span></span>
 <span><span class="va">fixture</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/downloadFixture.html">downloadFixture</a></span><span class="op">(</span><span class="fl">12427</span><span class="op">)</span></span>
