@@ -219,3 +219,34 @@ make_pre_2020_match_stats_with_id <- function(
   out$matchId <- match_id
   out
 }
+
+make_netball_aus_settings <- function() {
+  list(
+    applicationInfo = list(
+      defaultCompetitionID = 12971L,
+      defaultMatchID = 129710101L,
+      defaultSeason = 2026L,
+      defaultRound = 1L,
+      version = "2026.12.8.1"
+    ),
+    competitionList = list(
+      competition = list(
+        list(
+          id = 9315L,
+          application_logo = "/netball_aus/images/competition/9315.png",
+          competition_name = "2014 Constellation Cup"
+        ),
+        list(
+          id = 10200L,
+          application_logo = "/netball_aus/images/competition/9973.png",
+          competition_name = "2017 Netball Quad Series - January",
+          squad_id = 811L
+        ),
+        list(
+          id = 12971L,
+          competition_name = "2026 Constellation Cup"
+        )
+      )
+    )
+  )
+}
