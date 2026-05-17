@@ -26,9 +26,24 @@ This vignette provides an overview to get you started with using `netballR`. The
 
 # Sourcing Match Data
 
-Data are sourced from `https://mc.championdata.com/data/` using competition, round, and game identifiers. The bundled examples below use the 2017 home-and-away competition ID (`10083`) and the 2017 finals competition ID (`10084`). The full processed 2017 datasets are supplied with this package, while newer seasons can still be queried with the appropriate competition IDs from the current iStats portal.
+Data are sourced from `https://mc.championdata.com/data/` using competition, round, and game identifiers. The bundled examples below use the 2017 Super Netball home-and-away competition ID (`10083`) and the 2017 finals competition ID (`10084`). The full processed 2017 datasets are supplied with this package, while current Super Netball seasons, Australian Diamonds internationals, and other live Australian competitions can be queried with the appropriate competition IDs discovered from the current `netball_aus` iStats portal.
 
 If the live endpoint returns a transient HTTP error, `downloadMatch()` will retry before failing. If the response no longer includes a `matchStats` object, the function stops with an explicit error so schema changes are easier to detect.
+
+## Competition discovery pathways
+
+Use `listCompetitionsNetballAus()` for current / active Australian competitions exposed by the Champion Data `netball_aus` application, including Super Netball and Australian Diamonds internationals when they are present in the live catalogue.
+
+Use `anzc_comp_ids` as a historical lookup for ANZ Championship and NZ National Netball League workflows.
+
+Both discovery pathways lead into the same `downloadFixture()` / `downloadMatch()` workflow once you know the relevant `comp_id`.
+
+```{r competition-discovery, eval=FALSE}
+competitions <- listCompetitionsNetballAus()
+subset(competitions, grepl("Diamonds", competition_name, ignore.case = TRUE))
+
+anzc_comp_ids
+```
 
 Use `listCompetitionsNetballAus()` when you want to discover the broader live catalogue exposed by the Champion Data `netball_aus` application before choosing a `comp_id`.
 

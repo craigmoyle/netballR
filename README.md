@@ -6,12 +6,14 @@
 
 `netballR` provides tools to discover netball competitions, download Champion Data match feeds, and transform team and player statistics into tidy data for analysis.
 
-This package now supports two complementary workflows:
+This package supports two complementary competition-discovery pathways that feed the same download workflow:
 
-1. discover live competitions exposed by the Champion Data `netball_aus` iStats application
-2. download fixtures and matches using the existing Champion Data `/data/<comp_id>/...` transport
+1. use `listCompetitionsNetballAus()` to discover current competitions exposed by the Champion Data `netball_aus` iStats application
+2. use `anzc_comp_ids` as a historical lookup for ANZ Championship and NZ National Netball League competition IDs
 
-Historical Super Netball, ANZ Championship, and NZ National Netball League workflows remain supported.
+Current / active Australian coverage includes Super Netball plus Australian Diamonds international matches and other competitions surfaced by the live `netball_aus` catalogue. Historical coverage includes ANZ Championship and NZ National Netball League workflows.
+
+Once you know a `comp_id`, use `downloadFixture()` and `downloadMatch()` to retrieve data from the Champion Data `/data/<comp_id>/...` feed.
 
 ## Installation
 
@@ -37,15 +39,17 @@ remotes::install_github("craigmoyle/netballR@main")
 - `matchPoints_pre_2020()` and `ladders_pre_2020()` remain available for legacy seasons and older points systems.
 - `tidyMatch()` and `tidyPlayers()` append the Champion Data `matchId` so combined live tidy outputs can keep distinct matches separate.
 
-## Discover competitions from `netball_aus`
+## Discover current competitions from `netball_aus`
 
-Use `listCompetitionsNetballAus()` to inspect the live competition catalogue exposed by the Champion Data `netball_aus` application.
+Use `listCompetitionsNetballAus()` to inspect the live competition catalogue exposed by the Champion Data `netball_aus` application. This is the recommended discovery path for current / active Super Netball seasons, Australian Diamonds international matches, and other broader Australian competitions.
 
 ```r
 library(netballR)
 
 competitions <- listCompetitionsNetballAus()
 competitions
+
+subset(competitions, grepl("Diamonds", competition_name, ignore.case = TRUE))
 ```
 
 The returned `comp_id` values work directly with `downloadFixture()` and `downloadMatch()`.
@@ -61,9 +65,9 @@ match <- downloadMatch(comp_id, 1, 1)
 match_stats <- tidyMatch(match)
 ```
 
-## Historical ANZ Championship / NZ National Netball League
+## Historical competition lookups with `anzc_comp_ids`
 
-The package still includes `anzc_comp_ids` for historical ANZ Championship and NZ National Netball League workflows.
+`anzc_comp_ids` is a historical lookup dataset for ANZ Championship and NZ National Netball League workflows. Super Netball is current coverage and should be discovered through `listCompetitionsNetballAus()` when you need active competition IDs.
 
 ```r
 library(netballR)
