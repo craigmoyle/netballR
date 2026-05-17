@@ -72,3 +72,21 @@ test_that("matchPoints_pre_2020 keeps old and new scoring totals", {
   expect_equal(result$points_new[result$squadName == "Home"], 5)
   expect_equal(result$points_new[result$squadName == "Away"], 1)
 })
+
+test_that("matchPoints_pre_2020 ignores overtime periods for quarter bonus points", {
+  df <- make_pre_2020_match_stats(
+    round = 1L,
+    game = 1L,
+    home_team = "Home",
+    away_team = "Away",
+    home_goals = c(10L, 8L, 7L, 9L, 2L, 4L),
+    away_goals = c(8L, 9L, 11L, 6L, 3L, 2L)
+  )
+
+  result <- matchPoints_pre_2020(df)
+
+  expect_equal(result$points[result$squadName == "Home"], 2)
+  expect_equal(result$points[result$squadName == "Away"], 0)
+  expect_equal(result$points_new[result$squadName == "Home"], 6)
+  expect_equal(result$points_new[result$squadName == "Away"], 2)
+})

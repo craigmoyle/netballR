@@ -106,7 +106,7 @@ matchPoints_pre_2020 <- function(df) {
 
     ## Quarter-points bonus (new system)
     goals_new <- df |>
-        dplyr::filter(stat == "goals")
+        dplyr::filter(stat == "goals", period <= 4)
     homeScores <- goals_new |>
         dplyr::filter(squadName == home[['squadName']][home[['value']] == 1]) |>
         dplyr::select(period, homeSquad = squadName, homeValue = value)
