@@ -56,7 +56,7 @@ names(round5_game3)
 
 # Tidying Match and Player Statistics
 
-The full match data can be tidied into match and player statistics, grouped by period.
+The full match data can be tidied into match and player statistics, grouped by period. Live tidy outputs include the Champion Data `matchId`, which helps distinguish regular-season and finals matches that reuse round/game numbering.
 
 Tidying match statistics using the `tidyMatch` function:
 
@@ -64,6 +64,12 @@ Tidying match statistics using the `tidyMatch` function:
 tidied_match <- tidyMatch(round5_game3)
 tidied_match
 
+```
+
+```{r pre-2020-single-match, eval=FALSE}
+# For a single ANZ / NZ match, summarise the result from tidy match stats
+legacy_result <- matchPoints_pre_2020(tidied_match)
+legacy_result
 ```
 
 Tidying player statistics using the `tidyPlayers` function:

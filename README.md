@@ -37,7 +37,7 @@ remotes::install_github("craigmoyle/superNetballR_updated@main")
 
 ## ANZ Championship / NZ National Netball League
 
-The same Champion Data feed powers both competitions.  Use `anzc_comp_ids` to look up the competition ID for any season, then call `downloadFixture()` to see available matches and `downloadMatch()` to fetch match data.  Because ANZ Championship data uses a `goals` stat rather than the super-shot zones introduced in 2020, use `ladders_pre_2020()` (not `ladders()`) when computing standings.
+The same Champion Data feed powers both competitions. Use `anzc_comp_ids` to look up the competition ID for any season, then call `downloadFixture()` to see available matches and `downloadMatch()` to fetch match data. `tidyMatch()` now appends the Champion Data `matchId`, which helps keep regular-season and finals matches distinct when you combine live tidy outputs. Because ANZ Championship data uses a `goals` stat rather than the super-shot zones introduced in 2020, use `ladders_pre_2020()` (not `ladders()`) on season-style tidy match statistics when computing standings.
 
 ``` r
 library(superNetballR)
@@ -48,11 +48,15 @@ anzc_comp_ids
 # Get the fixture for the 2024 NZ National Netball League regular season
 fixture <- downloadFixture(12427)
 
-# Download a specific match (round 1, game 1)
+# Download and tidy a specific match (round 1, game 1)
 match <- downloadMatch(12427, 1, 1)
+match_stats <- tidyMatch(match)
 
-# Compute standings using the pre-super-shot scoring model
-standings <- ladders_pre_2020(matchPoints_pre_2020(match))
+# Summarise the single-match result using the pre-super-shot scoring model
+match_result <- matchPoints_pre_2020(match_stats)
+
+# For ladders_pre_2020(), supply season-style tidy match statistics
+standings <- ladders_pre_2020(match_stats)
 ```
 
 ## Development
