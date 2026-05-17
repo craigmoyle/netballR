@@ -7,10 +7,12 @@
 downloadFixture(comp_id)
 }
 \arguments{
-\item{comp_id}{A string identifying the competition. See
-\code{\link{anzc_comp_ids}} for known ANZ Championship competition IDs
-or \code{\link{listCompetitionsNetballAus}} for the broader live
-catalogue exposed by the Champion Data \code{netball_aus} application.}
+\item{comp_id}{A string identifying the competition. Use
+\code{\link{anzc_comp_ids}} as a historical lookup for ANZ Championship
+competition IDs or \code{\link{listCompetitionsNetballAus}} for the
+broader live Australian catalogue, including active Super Netball
+competitions and Australian Diamonds internationals exposed by the
+Champion Data \code{netball_aus} application.}
 }
 \value{
 A \code{\link[dplyr]{tibble}} with one row per match and columns:
@@ -40,8 +42,9 @@ competition, returning one row per match.
 \code{downloadFixture()} is the recommended starting point when working with
 a new competition: it shows which rounds and game numbers are available so
 you can pass them to \code{\link{downloadMatch}}. Use
-\code{\link{listCompetitionsNetballAus}} when you need to discover live
-competition IDs from the broader \code{netball_aus} catalogue first.
+\code{\link{listCompetitionsNetballAus}} for current / active Australian
+competitions and \code{\link{anzc_comp_ids}} for historical ANZ
+Championship or NZ National Netball League IDs.
 
 The function validates \code{comp_id}, retries transient HTTP failures, and
 raises an explicit error if the Champion Data response does not include a
@@ -49,10 +52,10 @@ raises an explicit error if the Champion Data response does not include a
 }
 \examples{
 \dontrun{
-## ANZ Championship 2017 (New Zealand, regular season)
+## ANZ Championship 2017 (historical comp_id from anzc_comp_ids)
 downloadFixture("10088")
 
-## Super Netball 2017
+## Super Netball (discover current comp_ids via listCompetitionsNetballAus())
 downloadFixture("10083")
 }
 

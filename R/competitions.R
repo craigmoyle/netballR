@@ -44,7 +44,7 @@ extract_netball_aus_competitions <- function(payload) {
 #'
 #' \code{listCompetitionsNetballAus()} downloads the public application settings
 #' used by the Champion Data \code{netball_aus} iStats app and returns a tidy
-#' tibble of available competitions.
+#' tibble of currently discoverable competitions.
 #'
 #' @return A \code{\link[dplyr]{tibble}} with one row per competition and
 #'   columns:
@@ -64,12 +64,19 @@ extract_netball_aus_competitions <- function(payload) {
 #'       when available.}
 #'   }
 #' @details
-#' The returned \code{comp_id} values use the same Champion Data `/data/...`
-#' transport as \code{\link{downloadFixture}} and \code{\link{downloadMatch}}.
+#' Use this helper for current / active competition discovery. The live
+#' catalogue can include Super Netball, Australian Diamonds internationals,
+#' and other Australian competitions exposed by Champion Data.
+#'
+#' The returned \code{comp_id} values use the same Champion Data
+#' \code{/data/...} transport as \code{\link{downloadFixture}} and
+#' \code{\link{downloadMatch}}. For historical ANZ Championship and NZ
+#' National Netball League IDs, use \code{\link{anzc_comp_ids}} instead.
 #'
 #' @examples
 #' \dontrun{
 #' comps <- listCompetitionsNetballAus()
+#' subset(comps, grepl("Diamonds", competition_name, ignore.case = TRUE))
 #' fixture <- downloadFixture(comps$comp_id[[1]])
 #' }
 #'

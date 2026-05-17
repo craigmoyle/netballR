@@ -1,7 +1,25 @@
 #' netballR: Download and Tidy Netball Statistics
 #'
-#' Download Champion Data netball match feeds and transform team and
-#' player statistics into tidy data frames for analysis.
+#' @description
+#' Download Champion Data netball match feeds and transform team and player
+#' statistics into tidy data frames for analysis.
+#'
+#' Current / active Australian coverage includes Super Netball plus Australian
+#' Diamonds international matches and other competitions discoverable through
+#' \code{\link{listCompetitionsNetballAus}}.
+#'
+#' @details
+#' Use \code{\link{listCompetitionsNetballAus}} to discover live competition
+#' IDs exposed by the Champion Data \code{netball_aus} application, including
+#' active Super Netball seasons and Australian Diamonds internationals when
+#' they appear in the live catalogue.
+#'
+#' Use \code{\link{anzc_comp_ids}} as a historical lookup for ANZ Championship
+#' and NZ National Netball League competition IDs.
+#'
+#' Once you know a \code{comp_id}, use \code{\link{downloadFixture}} and
+#' \code{\link{downloadMatch}} to retrieve data from the shared Champion Data
+#' \code{/data/...} transport.
 #'
 #' @keywords internal
 "_PACKAGE"

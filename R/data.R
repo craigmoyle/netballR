@@ -46,10 +46,11 @@
 #' @format A list.
 "round5_game3"
 
-#' ANZ Championship and NZ National Netball League competition IDs.
+#' Historical ANZ Championship and NZ National Netball League competition IDs.
 #'
-#' A dataset mapping Champion Data \code{comp_id} values to the corresponding
-#' netball season and competition, covering every season from 2008 to 2025.
+#' A historical lookup dataset mapping Champion Data \code{comp_id} values to
+#' the corresponding netball season and competition, covering every season from
+#' 2008 to 2025.
 #'
 #' @format A tibble with 35 rows and 4 variables:
 #' \describe{
@@ -65,6 +66,13 @@
 #'     and has no separate finals entry.}
 #' }
 #' @details
+#' Use \code{anzc_comp_ids} as a historical lookup when you already know you
+#' need ANZ Championship (2008--2016) or NZ National Netball League
+#' (2017--present) competition IDs. For current / active Super Netball seasons,
+#' Australian Diamonds internationals, and other broader Australian
+#' competitions exposed by the live Champion Data application, use
+#' \code{\link{listCompetitionsNetballAus}} instead.
+#'
 #' ANZ Championship seasons (2008--2016) featured both Australian and New
 #' Zealand franchises. From 2017 the New Zealand teams continued in the
 #' NZ National Netball League while the Australian franchises moved to Super

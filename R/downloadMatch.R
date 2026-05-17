@@ -99,11 +99,14 @@ extract_fixture <- function(payload) {
 #'
 #' \code{downloadMatch} downloads match and player data for a single match.
 #'
-#' @param comp_id A string identifying which season the game is
+#' @param comp_id A string identifying which season or competition the game is
 #'     in. \code{comp_id} is different depending on regular season or finals.
-#'     See \code{\link{anzc_comp_ids}} for known ANZ Championship competition
-#'     IDs, or \code{\link{listCompetitionsNetballAus}} for the broader live
-#'     catalogue exposed by the Champion Data \code{netball_aus} application.
+#'     Use \code{\link{anzc_comp_ids}} as a historical lookup for ANZ
+#'     Championship competition IDs, or
+#'     \code{\link{listCompetitionsNetballAus}} for the broader live
+#'     Australian catalogue, including active Super Netball competitions and
+#'     Australian Diamonds internationals exposed by the Champion Data
+#'     \code{netball_aus} application.
 #' @param round_id An integer identifying which round the game is in. Finals
 #'     reset round number to 1.
 #' @param game_id An integer indentifying which game in the round to
@@ -115,19 +118,22 @@ extract_fixture <- function(payload) {
 #' HTTP failures, and raises an explicit error if the Champion Data response no
 #' longer includes a \code{matchStats} object.
 #'
-#' ANZ Championship matches use the same data format as Super Netball and can
-#' be downloaded with the same function by supplying the appropriate
-#' \code{comp_id}. Because ANZ Championship matches do not use the super-shot
-#' scoring zone, use \code{\link{ladders_pre_2020}} (and
-#' \code{\link{matchPoints_pre_2020}}) when calculating standings for ANZ
+#' Once a \code{comp_id} is known, ANZ Championship matches use the same data
+#' format as Super Netball and can be downloaded with the same function by
+#' supplying the appropriate identifier. Because ANZ Championship matches do
+#' not use the super-shot scoring zone, use \code{\link{ladders_pre_2020}}
+#' (and \code{\link{matchPoints_pre_2020}}) when calculating standings for ANZ
 #' Championship data. Use \code{\link{downloadFixture}} to discover the rounds
-#' and game numbers available for a given competition.
+#' and game numbers available for a given competition after finding the
+#' relevant \code{comp_id} through \code{\link{anzc_comp_ids}} or
+#' \code{\link{listCompetitionsNetballAus}}.
 #'
 #' @examples
 #' \dontrun{
+#' ## Super Netball (discover current comp_ids via listCompetitionsNetballAus())
 #' downloadMatch("10083", 1, 1)
 #'
-#' ## ANZ Championship
+#' ## ANZ Championship (historical comp_id from anzc_comp_ids)
 #' downloadMatch("10088", 1, 1)
 #' }
 #'
@@ -156,10 +162,12 @@ downloadMatch <- function(comp_id, round_id, game_id) {
 #' \code{downloadFixture} fetches the full match schedule and results for a
 #' competition, returning one row per match.
 #'
-#' @param comp_id A string identifying the competition. See
-#'     \code{\link{anzc_comp_ids}} for known ANZ Championship competition IDs
-#'     or \code{\link{listCompetitionsNetballAus}} for the broader live
-#'     catalogue exposed by the Champion Data \code{netball_aus} application.
+#' @param comp_id A string identifying the competition. Use
+#'     \code{\link{anzc_comp_ids}} as a historical lookup for ANZ Championship
+#'     competition IDs or \code{\link{listCompetitionsNetballAus}} for the
+#'     broader live Australian catalogue, including active Super Netball
+#'     competitions and Australian Diamonds internationals exposed by the
+#'     Champion Data \code{netball_aus} application.
 #' @return A \code{\link[dplyr]{tibble}} with one row per match and columns:
 #'   \describe{
 #'     \item{round}{Round number.}
@@ -182,8 +190,9 @@ downloadMatch <- function(comp_id, round_id, game_id) {
 #' \code{downloadFixture()} is the recommended starting point when working with
 #' a new competition: it shows which rounds and game numbers are available so
 #' you can pass them to \code{\link{downloadMatch}}. Use
-#' \code{\link{listCompetitionsNetballAus}} when you need to discover live
-#' competition IDs from the broader \code{netball_aus} catalogue first.
+#' \code{\link{listCompetitionsNetballAus}} for current / active Australian
+#' competitions and \code{\link{anzc_comp_ids}} for historical ANZ
+#' Championship or NZ National Netball League IDs.
 #'
 #' The function validates \code{comp_id}, retries transient HTTP failures, and
 #' raises an explicit error if the Champion Data response does not include a
@@ -191,10 +200,10 @@ downloadMatch <- function(comp_id, round_id, game_id) {
 #'
 #' @examples
 #' \dontrun{
-#' ## ANZ Championship 2017 (New Zealand, regular season)
+#' ## ANZ Championship 2017 (historical comp_id from anzc_comp_ids)
 #' downloadFixture("10088")
 #'
-#' ## Super Netball 2017
+#' ## Super Netball (discover current comp_ids via listCompetitionsNetballAus())
 #' downloadFixture("10083")
 #' }
 #'
