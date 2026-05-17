@@ -82,12 +82,13 @@
 <h2 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h2>
 <p><code>netballR</code> provides tools to discover netball competitions, download Champion Data match feeds, and transform team and player statistics into tidy data for analysis.</p>
-<p>This package now supports two complementary workflows:</p>
+<p>This package supports two complementary competition-discovery pathways that feed the same download workflow:</p>
 <ol style="list-style-type: decimal">
-<li>discover live competitions exposed by the Champion Data <code>netball_aus</code> iStats application</li>
-<li>download fixtures and matches using the existing Champion Data <code>/data/&lt;comp_id&gt;/...</code> transport</li>
+<li>use <code><a href="reference/listCompetitionsNetballAus.html">listCompetitionsNetballAus()</a></code> to discover current competitions exposed by the Champion Data <code>netball_aus</code> iStats application</li>
+<li>use <code>anzc_comp_ids</code> as a historical lookup for ANZ Championship and NZ National Netball League competition IDs</li>
 </ol>
-<p>Historical Super Netball, ANZ Championship, and NZ National Netball League workflows remain supported.</p>
+<p>Current / active Australian coverage includes Super Netball plus Australian Diamonds international matches and other competitions surfaced by the live <code>netball_aus</code> catalogue. Historical coverage includes ANZ Championship and NZ National Netball League workflows.</p>
+<p>Once you know a <code>comp_id</code>, use <code><a href="reference/downloadFixture.html">downloadFixture()</a></code> and <code><a href="reference/downloadMatch.html">downloadMatch()</a></code> to retrieve data from the Champion Data <code>/data/&lt;comp_id&gt;/...</code> feed.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -119,15 +120,17 @@
 </ul>
 </div>
 <div class="section level2">
-<h2 id="discover-competitions-from-netball_aus">Discover competitions from <code>netball_aus</code>
-<a class="anchor" aria-label="anchor" href="#discover-competitions-from-netball_aus"></a>
+<h2 id="discover-current-competitions-from-netball_aus">Discover current competitions from <code>netball_aus</code>
+<a class="anchor" aria-label="anchor" href="#discover-current-competitions-from-netball_aus"></a>
 </h2>
-<p>Use <code><a href="reference/listCompetitionsNetballAus.html">listCompetitionsNetballAus()</a></code> to inspect the live competition catalogue exposed by the Champion Data <code>netball_aus</code> application.</p>
+<p>Use <code><a href="reference/listCompetitionsNetballAus.html">listCompetitionsNetballAus()</a></code> to inspect the live competition catalogue exposed by the Champion Data <code>netball_aus</code> application. This is the recommended discovery path for current / active Super Netball seasons, Australian Diamonds international matches, and other broader Australian competitions.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://craigmoyle.github.io/netballR/">netballR</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">competitions</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/listCompetitionsNetballAus.html">listCompetitionsNetballAus</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">competitions</span></span></code></pre></div>
+<span><span class="va">competitions</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">competitions</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"Diamonds"</span>, <span class="va">competition_name</span>, ignore.case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The returned <code>comp_id</code> values work directly with <code><a href="reference/downloadFixture.html">downloadFixture()</a></code> and <code><a href="reference/downloadMatch.html">downloadMatch()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://craigmoyle.github.io/netballR/">netballR</a></span><span class="op">)</span></span>
@@ -140,9 +143,10 @@
 <span><span class="va">match_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tidyMatch.html">tidyMatch</a></span><span class="op">(</span><span class="va">match</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="historical-anz-championship--nz-national-netball-league">Historical ANZ Championship / NZ National Netball League<a class="anchor" aria-label="anchor" href="#historical-anz-championship--nz-national-netball-league"></a>
+<h2 id="historical-competition-lookups-with-anzc_comp_ids">Historical competition lookups with <code>anzc_comp_ids</code>
+<a class="anchor" aria-label="anchor" href="#historical-competition-lookups-with-anzc_comp_ids"></a>
 </h2>
-<p>The package still includes <code>anzc_comp_ids</code> for historical ANZ Championship and NZ National Netball League workflows.</p>
+<p><code>anzc_comp_ids</code> is a historical lookup dataset for ANZ Championship and NZ National Netball League workflows. Super Netball is current coverage and should be discovered through <code><a href="reference/listCompetitionsNetballAus.html">listCompetitionsNetballAus()</a></code> when you need active competition IDs.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://craigmoyle.github.io/netballR/">netballR</a></span><span class="op">)</span></span>
 <span></span>

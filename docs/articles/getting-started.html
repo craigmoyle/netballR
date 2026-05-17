@@ -105,15 +105,35 @@ data.</p>
 </h2>
 <p>Data are sourced from <code>https://mc.championdata.com/data/</code>
 using competition, round, and game identifiers. The bundled examples
-below use the 2017 home-and-away competition ID (<code>10083</code>) and
-the 2017 finals competition ID (<code>10084</code>). The full processed
-2017 datasets are supplied with this package, while newer seasons can
-still be queried with the appropriate competition IDs from the current
-iStats portal.</p>
+below use the 2017 Super Netball home-and-away competition ID
+(<code>10083</code>) and the 2017 finals competition ID
+(<code>10084</code>). The full processed 2017 datasets are supplied with
+this package, while current Super Netball seasons, Australian Diamonds
+internationals, and other live Australian competitions can be queried
+with the appropriate competition IDs discovered from the current
+<code>netball_aus</code> iStats portal.</p>
 <p>If the live endpoint returns a transient HTTP error,
 <code><a href="../reference/downloadMatch.html">downloadMatch()</a></code> will retry before failing. If the response
 no longer includes a <code>matchStats</code> object, the function stops
 with an explicit error so schema changes are easier to detect.</p>
+<div class="section level3">
+<h3 id="competition-discovery-pathways">Competition discovery pathways<a class="anchor" aria-label="anchor" href="#competition-discovery-pathways"></a>
+</h3>
+<p>Use <code><a href="../reference/listCompetitionsNetballAus.html">listCompetitionsNetballAus()</a></code> for current / active
+Australian competitions exposed by the Champion Data
+<code>netball_aus</code> application, including Super Netball and
+Australian Diamonds internationals when they are present in the live
+catalogue.</p>
+<p>Use <code>anzc_comp_ids</code> as a historical lookup for ANZ
+Championship and NZ National Netball League workflows.</p>
+<p>Both discovery pathways lead into the same
+<code><a href="../reference/downloadFixture.html">downloadFixture()</a></code> / <code><a href="../reference/downloadMatch.html">downloadMatch()</a></code> workflow
+once you know the relevant <code>comp_id</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">competitions</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/listCompetitionsNetballAus.html">listCompetitionsNetballAus</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">competitions</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"Diamonds"</span>, <span class="va">competition_name</span>, ignore.case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">anzc_comp_ids</span></span></code></pre></div>
 <p>Use <code><a href="../reference/listCompetitionsNetballAus.html">listCompetitionsNetballAus()</a></code> when you want to
 discover the broader live catalogue exposed by the Champion Data
 <code>netball_aus</code> application before choosing a
@@ -121,13 +141,13 @@ discover the broader live catalogue exposed by the Champion Data
 <p>To download statistics from a single match, you use the
 <code>downloadMatch</code> function. As an example, the following code
 will download the match from round 5, game 3:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://craigmoyle.github.io/netballR/">netballR</a></span><span class="op">)</span></span>
 <span><span class="va">round5_game3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/downloadMatch.html">downloadMatch</a></span><span class="op">(</span><span class="st">"10083"</span>, <span class="fl">5</span>, <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p>The downloaded object is a list, containing detailed statistics
 (including period-by-period statistics) for the match and players:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">round5_game3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "list"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">round5_game3</span><span class="op">)</span></span>
@@ -135,6 +155,7 @@ will download the match from round 5, game 3:</p>
 <span><span class="co">#&gt;  [4] "playerInfo"        "playerPeriodStats" "periodInfo"       </span></span>
 <span><span class="co">#&gt;  [7] "teamInfo"          "teamPeriodStats"   "teamStats"        </span></span>
 <span><span class="co">#&gt; [10] "playerSubs"        "scoreFlow"</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="tidying-match-and-player-statistics">Tidying Match and Player Statistics<a class="anchor" aria-label="anchor" href="#tidying-match-and-player-statistics"></a>
@@ -145,7 +166,7 @@ grouped by period. Live tidy outputs include the Champion Data
 matches that reuse round/game numbering.</p>
 <p>Tidying match statistics using the <code>tidyMatch</code>
 function:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tidied_match</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tidyMatch.html">tidyMatch</a></span><span class="op">(</span><span class="va">round5_game3</span><span class="op">)</span></span>
 <span><span class="va">tidied_match</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 256 × 10</span></span></span>
@@ -163,13 +184,13 @@ function:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>      1    <span style="text-decoration: underline;">8</span>117 Sunshine Coas… Lightning     SCL       bloc…     0     5     3</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 246 more rows</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: matchId &lt;int&gt;</span></span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For a single ANZ / NZ match, summarise the result from tidy match stats</span></span>
 <span><span class="va">legacy_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/matchPoints_pre_2020.html">matchPoints_pre_2020</a></span><span class="op">(</span><span class="va">tidied_match</span><span class="op">)</span></span>
 <span><span class="va">legacy_result</span></span></code></pre></div>
 <p>Tidying player statistics using the <code>tidyPlayers</code>
 function:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tidied_players</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tidyPlayers.html">tidyPlayers</a></span><span class="op">(</span><span class="va">round5_game3</span><span class="op">)</span></span>
 <span><span class="va">tidied_players</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2,560 × 12</span></span></span>
@@ -195,7 +216,7 @@ function:</p>
 statistics in tidied format. These have been obtained using the
 previously described methods, tidied, and then combined by rows to
 produce a single data frame:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">season_2017</span><span class="op">)</span></span>
 <span><span class="va">season_2017</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 15,360 × 9</span></span></span>
@@ -217,7 +238,7 @@ season means it is easy to reproduce ladder positions. A
 <code>ladders</code> function is provided that can be used on full
 season data. For example, here is the ladder as it stood at the end of
 the 2017 home and away season:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ladder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ladders.html">ladders</a></span><span class="op">(</span><span class="va">season_2017</span>, round_num <span class="op">=</span> <span class="fl">14</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: There were 60 warnings in `dplyr::mutate()`.</span></span>
 <span><span class="co">#&gt; The first warning was:</span></span>
@@ -248,7 +269,7 @@ contained 14 rounds.</p>
 <code>_pre_2020</code> helpers. These retain the legacy match-points
 calculation while still exposing the newer quarter-points summary where
 it is useful for comparison.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">legacy_ladder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ladders.html">ladders_pre_2020</a></span><span class="op">(</span><span class="va">season_2017</span>, round_num <span class="op">=</span> <span class="fl">14</span>, old_system <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">legacy_ladder</span></span></code></pre></div>
 </div>
@@ -258,9 +279,9 @@ it is useful for comparison.</p>
 <p>This fork is maintained with automated tests and a GitHub Actions
 <code>R-CMD-check</code> workflow. For local work, the repository
 <code>Makefile</code> exposes the same core tasks:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>make test</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>make build</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>make check</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>make test</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>make build</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>make check</span></code></pre></div>
 </div>
   </div>
 

@@ -68,11 +68,14 @@
 
 
 <dl><dt id="arg-comp-id">comp_id<a class="anchor" aria-label="anchor" href="#arg-comp-id"></a></dt>
-<dd><p>A string identifying which season the game is
+<dd><p>A string identifying which season or competition the game is
 in. <code>comp_id</code> is different depending on regular season or finals.
-See <code><a href="anzc_comp_ids.html">anzc_comp_ids</a></code> for known ANZ Championship competition
-IDs, or <code><a href="listCompetitionsNetballAus.html">listCompetitionsNetballAus</a></code> for the broader live
-catalogue exposed by the Champion Data <code>netball_aus</code> application.</p></dd>
+Use <code><a href="anzc_comp_ids.html">anzc_comp_ids</a></code> as a historical lookup for ANZ
+Championship competition IDs, or
+<code><a href="listCompetitionsNetballAus.html">listCompetitionsNetballAus</a></code> for the broader live
+Australian catalogue, including active Super Netball competitions and
+Australian Diamonds internationals exposed by the Champion Data
+<code>netball_aus</code> application.</p></dd>
 
 
 <dt id="arg-round-id">round_id<a class="anchor" aria-label="anchor" href="#arg-round-id"></a></dt>
@@ -95,21 +98,24 @@ in the semi finals, one game for the prelim, and one grand final.</p></dd>
     <p><code>downloadMatch()</code> validates the supplied identifiers, retries transient
 HTTP failures, and raises an explicit error if the Champion Data response no
 longer includes a <code>matchStats</code> object.</p>
-<p>ANZ Championship matches use the same data format as Super Netball and can
-be downloaded with the same function by supplying the appropriate
-<code>comp_id</code>. Because ANZ Championship matches do not use the super-shot
-scoring zone, use <code><a href="ladders.html">ladders_pre_2020</a></code> (and
-<code><a href="matchPoints_pre_2020.html">matchPoints_pre_2020</a></code>) when calculating standings for ANZ
+<p>Once a <code>comp_id</code> is known, ANZ Championship matches use the same data
+format as Super Netball and can be downloaded with the same function by
+supplying the appropriate identifier. Because ANZ Championship matches do
+not use the super-shot scoring zone, use <code><a href="ladders.html">ladders_pre_2020</a></code>
+(and <code><a href="matchPoints_pre_2020.html">matchPoints_pre_2020</a></code>) when calculating standings for ANZ
 Championship data. Use <code><a href="downloadFixture.html">downloadFixture</a></code> to discover the rounds
-and game numbers available for a given competition.</p>
+and game numbers available for a given competition after finding the
+relevant <code>comp_id</code> through <code><a href="anzc_comp_ids.html">anzc_comp_ids</a></code> or
+<code><a href="listCompetitionsNetballAus.html">listCompetitionsNetballAus</a></code>.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co">## Super Netball (discover current comp_ids via listCompetitionsNetballAus())</span></span></span>
 <span class="r-in"><span><span class="fu">downloadMatch</span><span class="op">(</span><span class="st">"10083"</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## ANZ Championship</span></span></span>
+<span class="r-in"><span><span class="co">## ANZ Championship (historical comp_id from anzc_comp_ids)</span></span></span>
 <span class="r-in"><span><span class="fu">downloadMatch</span><span class="op">(</span><span class="st">"10088"</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
