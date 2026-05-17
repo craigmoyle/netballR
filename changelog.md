@@ -29,7 +29,7 @@ Code quality and correctness improvements from a full package review.
 - Replaced `magrittr` pipe (`%>%`) with the native R pipe (`|>`) throughout. Minimum R version bumped from 4.0.0 to 4.1.0.
 - `magrittr` removed from `Imports`; `dplyr (>= 1.1.0)` version constraint added.
 - `case_when(TRUE ~ ...)` fallthrough sentinels updated to the modern `.default =` idiom in `matchPoints.R`.
-- `globalVariables()` declarations consolidated from `zzz.R` + `superNetballR.R` into a single call; missing names (`goals2`, `isHome`, `games`, `qtr_diff`) added.
+- `globalVariables()` declarations consolidated into a single package-level call; missing names (`goals2`, `isHome`, `games`, `qtr_diff`) added.
 - Added Craig Moyle as package author/maintainer in `DESCRIPTION`.
 - `%||%` null-coalescing operator annotated with `@noRd`.
 - CI: removed the `roxygenise()` step from the GitHub Actions workflow — committed `.Rd` files are used directly by `R CMD check`.
