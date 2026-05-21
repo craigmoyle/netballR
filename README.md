@@ -8,7 +8,13 @@
 
 This package supports two complementary competition-discovery pathways that feed the same download workflow:
 
-1. use `listCompetitionsNetballAus()` to discover current competitions exposed by the Champion Data `netball_aus` iStats application
+1. use the Champion Data application catalogue functions to discover current competitions:
+   - `listCompetitionsNetballAus()` — Super Netball, Australian Diamonds internationals, and other Australian competitions
+   - `listCompetitionsNetballNZ()` — NZ National Netball League, Silver Ferns internationals, and domestic NZ competitions
+   - `listCompetitionsEnglandNetball()` — England Netball competitions
+   - `listCompetitionsWorldCup(year)` — Netball World Cup catalogues for 2015, 2019, and 2023
+   - `listCompetitions(source)` — generic function for any named Champion Data catalogue
+   - `listAllCompetitions()` — query all catalogues at once, with optional deduplication
 2. use `anzc_comp_ids` as a historical lookup for ANZ Championship and NZ National Netball League competition IDs
 
 Current / active Australian coverage includes Super Netball plus Australian Diamonds international matches and other competitions surfaced by the live `netball_aus` catalogue. Historical coverage includes ANZ Championship and NZ National Netball League workflows.
@@ -34,10 +40,44 @@ remotes::install_github("craigmoyle/netballR@main")
 
 - `downloadMatch()` validates competition, round, and game identifiers, retries transient HTTP failures, and errors clearly if the Champion Data payload is missing `matchStats`.
 - `downloadFixture()` fetches the full match schedule for any competition supported by the Champion Data `/data/...` feed.
-- `listCompetitionsNetballAus()` returns a live competition catalogue sourced from `https://mc.championdata.com/netball_aus/settings/application_settings.json`.
+- `listCompetitions(source)` returns competitions from any named Champion Data application catalogue. Named convenience wrappers exist for each catalogue (`listCompetitionsNetballAus()`, `listCompetitionsNetballNZ()`, `listCompetitionsEnglandNetball()`, `listCompetitionsWorldCup(year)`).
+- `listAllCompetitions()` queries all known catalogues at once. The same competition can appear in multiple catalogues (e.g. the Constellation Cup appears in both `netball_aus` and `netball_nz`); `deduplicate = TRUE` (default) keeps one row per `comp_id`.
 - `matchPoints()` and `ladders()` implement the current super-shot scoring model for 2020+ data.
 - `matchPoints_pre_2020()` and `ladders_pre_2020()` remain available for legacy seasons and older points systems.
 - `tidyMatch()` and `tidyPlayers()` append the Champion Data `matchId` so combined live tidy outputs can keep distinct matches separate.
+
+## Discover competitions across all catalogues
+
+Use `listAllCompetitions()` to query every known Champion Data catalogue in one call. Duplicate `comp_id` values (international competitions listed by multiple countries) are removed by default, with the first-matched source taking precedence.
+
+```r
+library(netballR)
+
+## All competitions, deduplicated
+all_comps <- listAllCompetitions()
+
+## Inspect cross-catalogue duplicates
+all_comps_raw <- listAllCompetitions(deduplicate = FALSE)
+all_comps_raw[all_comps_raw$comp_id == 9315, c("comp_id", "competition_name", "application_source")]
+```
+
+## Discover competitions by region or tournament
+
+```r
+library(netballR)
+
+## New Zealand competitions
+listCompetitionsNetballNZ()
+
+## England Netball competitions
+listCompetitionsEnglandNetball()
+
+## Netball World Cup catalogues (2015, 2019, or 2023)
+listCompetitionsWorldCup(2023)
+
+## Any named catalogue
+listCompetitions("nwc2019")
+```
 
 ## Discover current competitions from `netball_aus`
 

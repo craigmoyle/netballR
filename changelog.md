@@ -4,6 +4,24 @@ All notable changes in this project are documented here.
 
 This changelog covers the changes introduced in `craigmoyle/netballR` since the fork diverged from the original `SteveLane/superNetballR` (historical upstream) project published at <https://stevelane.github.io/superNetballR/>.
 
+## 0.5.0 - 2026-05-21
+
+Multi-source competition discovery across all major Champion Data netball catalogues.
+
+### Added
+
+- `listCompetitions(source)` — generic function that queries any named Champion Data application catalogue. Supported sources: `"netball_aus"`, `"netball_nz"`, `"england_netball"`, `"nwc2015"`, `"nwc2019"`, `"nwc2023"`.
+- `listCompetitionsNetballNZ()` — NZ National Netball League, Silver Ferns internationals, and domestic NZ competitions from the `netball_nz` catalogue.
+- `listCompetitionsEnglandNetball()` — England Netball competitions from the `england_netball` catalogue.
+- `listCompetitionsWorldCup(year)` — Netball World Cup competitions for 2015, 2019, or 2023. World Cup catalogues do not include `competition_name`; that column is `NA` and `application_source` identifies the catalogue.
+- `listAllCompetitions(sources, deduplicate, on_error)` — queries all known catalogues in one call. `deduplicate = TRUE` (default) removes rows with duplicate `comp_id` values, keeping the first occurrence in `sources` order. This handles international competitions (e.g. Constellation Cup, Quad Series) that appear in more than one catalogue. `on_error = "warn"` (default) warns on single-source failures and continues; `"error"` stops immediately; `"ignore"` skips silently. Always errors if all sources fail.
+
+### Changed
+
+- `listCompetitionsNetballAus()` is now a thin wrapper around the new generic `listCompetitions("netball_aus")`. Behaviour and output schema are unchanged.
+- Internal URL building, HTTP fetching, and payload extraction have been consolidated into generic helpers (`build_application_settings_url`, `fetch_application_settings`, `extract_competitions`) driven by a central `.application_source_map`. Adding a new Champion Data catalogue requires only a map entry and a named wrapper.
+- `extract_competitions()` now silently drops competition entries that have no `id` field, and normalises single-entry catalogues that parse as a named list rather than a list-of-lists.
+
 ## 0.4.0 - 2026-05-18
 
 - Breaking rename: package and repository move from `superNetballR` / `superNetballR_updated` to `netballR`.

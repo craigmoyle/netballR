@@ -250,3 +250,44 @@ make_netball_aus_settings <- function() {
     )
   )
 }
+
+## World Cup catalogues only contain id + full_names — no competition_name.
+make_world_cup_settings <- function() {
+  list(
+    applicationInfo = list(
+      defaultCompetitionID = 12115L,
+      defaultMatchID = 121150101L,
+      defaultSeason = 2023L,
+      defaultRound = 1L,
+      version = "2024.10.28.1"
+    ),
+    competitionList = list(
+      competition = list(
+        list(id = 12115L, full_names = TRUE),
+        list(id = 12116L, full_names = TRUE)
+      )
+    )
+  )
+}
+
+## A settings payload with one competition that has no id — for testing that
+## extract_competitions drops it.
+make_settings_with_missing_id <- function() {
+  list(
+    competitionList = list(
+      competition = list(
+        list(id = 9315L, competition_name = "2014 Constellation Cup"),
+        list(competition_name = "No ID competition")
+      )
+    )
+  )
+}
+
+## Minimal settings with a single competition entry (not wrapped in a list-of-lists).
+make_settings_single_competition <- function() {
+  list(
+    competitionList = list(
+      competition = list(id = 9315L, competition_name = "2014 Constellation Cup")
+    )
+  )
+}

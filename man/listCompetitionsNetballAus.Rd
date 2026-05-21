@@ -7,23 +7,8 @@
 listCompetitionsNetballAus()
 }
 \value{
-A \code{\link[dplyr]{tibble}} with one row per competition and
-  columns:
-  \describe{
-    \item{comp_id}{Champion Data competition identifier. Pass this value to
-      \code{\link{downloadFixture}} or \code{\link{downloadMatch}}.}
-    \item{competition_name}{Competition name from the live application
-      settings.}
-    \item{application_source}{Always \code{"netball_aus"} for this helper.}
-    \item{season}{Season year if supplied by the live settings payload,
-      otherwise \code{NA}.}
-    \item{competition_type}{Competition type if supplied by the live settings
-      payload, otherwise \code{NA}.}
-    \item{squad_id}{Optional squad filter attached to the competition in the
-      live settings payload.}
-    \item{application_logo}{Relative logo path from the live settings payload
-      when available.}
-  }
+A \code{\link[dplyr]{tibble}} with one row per competition. See
+  \code{\link{listCompetitions}} for column descriptions.
 }
 \description{
 \code{listCompetitionsNetballAus()} downloads the public application settings
@@ -31,14 +16,11 @@ used by the Champion Data \code{netball_aus} iStats app and returns a tidy
 tibble of currently discoverable competitions.
 }
 \details{
-Use this helper for current / active competition discovery. The live
-catalogue can include Super Netball, Australian Diamonds internationals,
-and other Australian competitions exposed by Champion Data.
+The live catalogue includes Super Netball, Australian Diamonds
+internationals, and other Australian competitions.
 
-The returned \code{comp_id} values use the same Champion Data
-\code{/data/...} transport as \code{\link{downloadFixture}} and
-\code{\link{downloadMatch}}. For historical ANZ Championship and NZ
-National Netball League IDs, use \code{\link{anzc_comp_ids}} instead.
+For historical ANZ Championship and NZ National Netball League IDs, use
+\code{\link{anzc_comp_ids}} instead.
 }
 \examples{
 \dontrun{
@@ -46,5 +28,7 @@ comps <- listCompetitionsNetballAus()
 subset(comps, grepl("Diamonds", competition_name, ignore.case = TRUE))
 fixture <- downloadFixture(comps$comp_id[[1]])
 }
-
+}
+\seealso{
+\code{\link{listCompetitions}}, \code{\link{listAllCompetitions}}
 }
